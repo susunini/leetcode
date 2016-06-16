@@ -9,6 +9,9 @@
 # buy[i] = cool[i-1] - prices[i])
 # cool[i] = max(cool[i-1], sell[i-1])
 
+# Some people intepret the problem as a state machine
+# https://leetcode.com/discuss/72030/share-my-dp-solution-by-state-machine-thinking
+
 class Solution(object):
     def maxProfit(self, prices):
         """
@@ -24,4 +27,4 @@ class Solution(object):
             sell_next = buy + prices[i]
             cool_next = max(cool, sell)
             buy, sell, cool = buy_next, sell_next, cool_next
-        return max(buy, sell, cool)
+        return max(buy, sell, cool) # or return max(sell, cool)
