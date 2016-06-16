@@ -1,0 +1,27 @@
+# Note:
+# DP
+# But there are several ways of writing the recursion function
+
+# Solution 1
+# buy[i], sell[i], cool[i] - the last transaction at day i is buy, sell or cooldown, respectively 
+# p.s. there could be no transaction on day i
+# sell[i] = max(sell[i-1], buy[i-1] + prices[i])
+# buy[i] = cool[i-1] - prices[i])
+# cool[i] = max(cool[i-1], sell[i-1])
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices) < 1: return 0
+        
+        buy = -prices[0]
+        sell = cool = 0
+        for i in range(1, len(prices)):
+            buy_next = max(buy, cool - prices[i])
+            sell_next = buy + prices[i]
+            cool_next = max(cool, sell)
+            buy, sell, cool = buy_next, sell_next, cool_next
+        return max(buy, sell, cool)
