@@ -7,7 +7,7 @@ https://leetcode.com/problems/unique-binary-search-trees-ii/
 #             left nodes: dp[j], 
 #             root node: new node with value j+1, 
 #             right nodes: dp[i-j-1] but offset value by j+1)
-#         ) for j from 0 to i
+#         ) for j from 0 to i-1
 # dp[0] - [None]
 # return dp[n]
 
