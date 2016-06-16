@@ -1,0 +1,28 @@
+# https://leetcode.com/problems/different-ways-to-add-parentheses/
+
+# Solution 1: DFS
+
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        r_combs = list()
+        self.dfs(k, n, [], r_combs)
+        return r_combs
+        
+    def dfs(self, k, n, cur_comb, r_combs):
+        if k < 0  or n < 0:
+            return
+        if k == 0 and n == 0: # mistake: if n == 0
+            r_combs.append(cur_comb[:])
+            return
+        start_num = 1 if len(cur_comb) < 1 else cur_comb[-1] + 1
+        end_num = min(n, 9) # mistake: num has to be in the range of 1 to 9
+        for num in range(start_num, end_num + 1):
+            cur_comb.append(num)
+            self.dfs(k - 1, n - num, cur_comb, r_combs)
+            cur_comb.pop()
+
