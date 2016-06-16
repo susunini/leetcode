@@ -1,8 +1,8 @@
 # https://leetcode.com/problems/different-ways-to-add-parentheses/
 
-# Solution 1:
+# Solution 2:
 # Divide and conquer
-# Idea is simple but use some python functions which I am not familiar with
+# Another way to implement; shorter code but less efficient 52ms vs 76ms
 
 class Solution(object):
     def diffWaysToCompute(self, input):
@@ -10,18 +10,7 @@ class Solution(object):
         :type input: str
         :rtype: List[int]
         """
-        tokens = re.split('(\D)', input)
-        nums = map(int, tokens[::2])
-        ops = map({"+":operator.add, "-":operator.sub, "*":operator.mul}.get, tokens[1::2])
-        
-        def build(lo, hi):
-            if lo == hi:
-                return [nums[lo]]
-            return [
-                ops[i](a, b) 
-                for i in xrange(lo, hi) 
-                for a in build(lo, i) 
-                for b in build(i + 1, hi)
-            ]
-            
-        return build(0, len(nums) - 1)
+        return [ (a + b) if ch == "+" else (a - b) if ch == "-" else (a * b)
+            for i, ch in enumerate(input) if ch in "+-*" 
+            for a in self.diffWaysToCompute(input[:i])
+            for b in self.diffWaysToCompute(input[i+1:])] or [int(input)]
