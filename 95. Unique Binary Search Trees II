@@ -1,0 +1,46 @@
+
+https://leetcode.com/problems/unique-binary-search-trees-ii/
+
+# DP
+# dp[i] - a list of binary trees (root nodes) that stores value 1 ... i
+# dp[i] = combinations of (
+#             left nodes: dp[j], 
+#             root node: new node with value j+1, 
+#             right nodes: dp[i-j-1] but offset value by j+1)
+#         ) for j from 0 to i
+# dp[0] - [None]
+# return dp[n]
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def generateTrees(self, n):
+        """
+        :type n: int
+        :rtype: List[TreeNode]
+        """
+        if n == 0: return []
+        dp = [[] for _ in range(n + 1)]
+        dp[0].append(None)
+        for i in range(1, n + 1): # i from 1 to n
+            for j in range(0, i): # j from 0 to (i-1)
+                for l_root in dp[j]:
+                    for r_root in dp[i-j-1]:
+                        new_root = TreeNode(j+1)
+                        new_root.left = l_root
+                        new_root.right = self.clone(r_root, j+1)
+                        dp[i].append(new_root)
+        return dp[-1]
+        
+    def clone(self, root, offset):
+        if root is None: return None
+        new_root = TreeNode(root.val + offset)
+        new_root.left = self.clone(root.left, offset)
+        new_root.right = self.clone(root.right, offset)
+        return new_root
+
