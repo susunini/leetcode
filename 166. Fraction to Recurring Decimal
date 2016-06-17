@@ -1,0 +1,40 @@
+# Note:
+# 0: corner cases: d == 0 n == 0
+# 1. sign
+# 2. integer part
+# 3. fractional part
+# 4. repeating numerator
+
+class Solution(object):
+    def fractionToDecimal(self, numerator, denominator):
+        """
+        :type numerator: int
+        :type denominator: int
+        :rtype: str
+        """
+        r_str = ""
+        n = numerator; d = denominator
+        if d == 0:
+            return None
+        if n == 0:
+            return "0"
+        if n * d < 0: 
+            r_str += "-"
+        n = abs(n); d = abs(d)
+        r_str += str(n / d)
+        if n % d == 0:
+            return r_str
+        r_str += "."
+        n_to_idx = {}
+        n = (n % d) * 10
+        while n != 0:
+            if n not in n_to_idx:
+                r_str += str(n / d)
+                n_to_idx[n] = len(r_str) - 1
+                n = (n % d) * 10
+            else:
+                idx = n_to_idx[n]
+                r_str = r_str[:idx] + "(" + r_str[idx:] + ")"
+                break
+        return r_str
+        
