@@ -1,15 +1,13 @@
 # Note:
-# Solution 1: Use dictionary to store children; beats 94%
+# Solution 1.1: Use list instead of dictionary to store children; beats only 19% instead of 97%
 
 class TrieNode(object):
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        # self.value = None
-        self.children = dict()
+        self.child = [None] * 27
         
-
 class Trie(object):
 
     def __init__(self):
@@ -23,11 +21,12 @@ class Trie(object):
         """
         cur = self.root
         for ch in word:
-            if ch not in cur.children:
+            idx = ord(ch) - ord('a')
+            if cur.child[idx] is None:
                 newNode = TrieNode()
-                cur.children[ch] = newNode
-            cur = cur.children[ch]
-        cur.children["#"] = True
+                cur.child[idx] = newNode
+            cur = cur.child[idx] # 
+        cur.child[-1] = "#"
                 
     def search(self, word):
         """
@@ -37,14 +36,16 @@ class Trie(object):
         """
         cur = self.root
         for ch in word:
-            if ch not in cur.children:
+            idx = ord(ch) - ord('a')
+            if cur.child[idx]:
+                cur = cur.child[idx]
+            else:
                 return False
-            cur = cur.children[ch]
-        if "#" in cur.children:
+        if cur.child[-1] == "#":
             return True
         else:
             return False
-
+        
     def startsWith(self, prefix):
         """
         Returns if there is any word in the trie
@@ -54,9 +55,11 @@ class Trie(object):
         """
         cur = self.root
         for ch in prefix:
-            if ch not in cur.children:
+            idx = ord(ch) - ord('a')
+            if cur.child[idx]:
+                cur = cur.child[idx]
+            else:
                 return False
-            cur = cur.children[ch]
         return True
         
 
