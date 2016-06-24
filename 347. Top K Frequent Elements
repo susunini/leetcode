@@ -2,25 +2,3 @@
 # Solution 2: 
 # Use dictionary and max heap
 
-class Solution(object):
-    def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
-        
-        num_to_cnt = collections.defaultdict(int)
-        for num in nums:
-            num_to_cnt[num] += 1
-        
-        max_freq = max([cnt for _, cnt in num_to_cnt.items()])   
-        buckets = [[] for i in range(max_freq + 1)]
-        for num, cnt in num_to_cnt.items():
-            buckets[cnt].append(num)
-        r_ints = []
-        for i in range(len(buckets) - 1, -1, -1):
-            if len(r_ints) == k:
-                return r_ints
-            if buckets[i]:
-                r_ints.extend(buckets[i])
