@@ -1,0 +1,41 @@
+# https://leetcode.com/problems/game-of-life/
+
+# Note:
+# Solution 1
+# Use two bits one representing current status and the other representing next status
+
+class Solution(object):
+    def getLives(self, board, m, n, i, j):
+        lives = 0
+        for a in range(max(i-1, 0), min(i+2, n)):
+            for b in range(max(j-1, 0), min(j+2, m)):
+                lives += (board[a][b] & 1)
+        lives -= (board[i][j] & 1)
+        return lives
+                
+        
+    def gameOfLife(self, board):
+        """
+        :type board: List[List[int]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        if len(board) < 1 or len(board[0]) < 1:
+            return
+        
+        n, m = len(board), len(board[0])
+        for i in range(n):
+            for j in range(m):
+                lives = self.getLives(board, m, n, i, j)
+                if board[i][j] == 0:
+                    if lives == 3:
+                        board[i][j] = 2
+                elif board[i][j] == 1:
+                    if lives == 2 or lives == 3:
+                        board[i][j] = 3
+        for i in range(n):
+            for j in range(m):
+                board[i][j] >>= 1
+                        
+                
+     
+
