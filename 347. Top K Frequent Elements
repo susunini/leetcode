@@ -1,6 +1,6 @@
 # Note:
-# Solution 1: beats 99% 60ms
-# Use dictionary and bucket sort
+# Solution 2: 
+# Use dictionary and max heap
 
 class Solution(object):
     def topKFrequent(self, nums, k):
