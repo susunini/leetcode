@@ -1,0 +1,6 @@
+# Hint:
+
+# 1. The naive approach is to call isUgly for every number until you reach the nth one. Most numbers are not ugly. Try to focus your effort on generating only the ugly ones.
+# 2. An ugly number must be multiplied by either 2, 3, or 5 from a smaller ugly number.
+# 3. Assume you have U_k, the k_th ugly number. Then U_k+1 must be Min(P2 * 2, P3 * 3, P5 * 5). 
+# 5. How do we maintain P2, P3 and P5. Intially, they all point to integer one. If P2's pointed number for example integer eight is used to generate 16, eight should not be used again as P2. P2 should moved to (P2 + 1), pointing to the next smallest number. 
