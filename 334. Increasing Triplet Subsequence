@@ -1,0 +1,23 @@
+# Note:
+# Solution 1:
+# Greedy; Use two integers
+# c1 = so far best candidate of end element of a one-cell subsequence to form a triplet subsequence
+# c2 = so far best candidate of end element of a two-cell subsequence to form a triplet subsequence
+# Similar problem: (M) Longest Increasing Subsequence
+
+class Solution(object):
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        c1 = c2 = sys.maxint
+        for num in nums:
+            if num <= c1:
+                c1 = num
+            elif num <= c2:
+                c2 = num
+            else:
+                return True
+        return False
+        
