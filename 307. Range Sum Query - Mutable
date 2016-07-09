@@ -1,0 +1,80 @@
+# Note:
+# Solution 1: Segment Tree 528ms beats 37%
+# both update and sumRange O(lgn) tree construction o(nlgn)
+
+class SegmentTreeNode(object):
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.left = self.right = None
+        self.sum = 0
+            
+class NumArray(object):
+    def __init__(self, nums):
+        """
+        initialize your data structure here.
+        :type nums: List[int]
+        """
+        self.root = self.buildTree(nums, 0, len(nums) - 1)
+        
+    def update(self, i, val):
+        """
+        :type i: int
+        :type val: int
+        :rtype: int
+        """
+        self.doUpdate(self.root, i, val)
+        return val
+        
+    def sumRange(self, i, j):
+        """
+        sum of elements nums[i..j], inclusive.
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        return self.doSumRange(self.root, i, j)
+    
+    def buildTree(self, nums, start, end):
+        if start > end: return None
+        r_node = SegmentTreeNode(start, end)
+        if start == end:
+            r_node.sum = nums[start]
+        else:
+            mid = start + (end - start) / 2
+            r_node.left = self.buildTree(nums, start, mid)
+            r_node.right = self.buildTree(nums, mid + 1, end)
+            r_node.sum = r_node.left.sum + r_node.right.sum
+        return r_node
+    
+    def doUpdate(self, root, pos, val):
+        # if pos < root.start or pos > root.end: raise Exception
+        if root.start == root.end:
+            root.sum = val
+        else:
+            mid = root.start + (root.end - root.start) / 2
+            if pos <= mid:
+                self.doUpdate(root.left, pos, val)
+            else:
+                self.doUpdate(root.right, pos, val)
+            root.sum = root.left.sum + root.right.sum
+    
+    def doSumRange(self, root, start, end):
+        # if start < root.start or end > root.end: raise Exception
+        
+        if root.start == start and root.end == end:
+            return root.sum
+        mid = root.start + (root.end - root.start) / 2
+        if end <= mid:
+            return self.doSumRange(root.left, start, end)
+        elif start > mid:
+            return self.doSumRange(root.right, start, end)
+        else:
+            return self.doSumRange(root.left, start, mid) + self.doSumRange(root.right, mid + 1, end)
+        
+        
+# Your NumArray object will be instantiated and called as such:
+# numArray = NumArray(nums)
+# numArray.sumRange(0, 1)
+# numArray.update(1, 10)
+# numArray.sumRange(1, 2)
