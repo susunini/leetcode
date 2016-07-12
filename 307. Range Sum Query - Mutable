@@ -1,21 +1,58 @@
 # Note:
-# Solution 1: Segment Tree 528ms beats 37%
+# Solution 2: Binary Index Tree beats 97% 164ms
 # both update and sumRange O(lgn) tree construction o(nlgn)
+"""
+	 * Binary Indexed Trees (BIT or Fenwick tree):
+	 * https://www.topcoder.com/community/data-science/data-science-
+	 * tutorials/binary-indexed-trees/
+	 * 
+	 * Example: given an array a[0]...a[7], we use a array BIT[9] to
+	 * represent a tree, where index [2] is the parent of [1] and [3], [6]
+	 * is the parent of [5] and [7], [4] is the parent of [2] and [6], and
+	 * [8] is the parent of [4]. I.e.,
+	 * 
+	 * BIT[] as a binary tree:
+	 *            ______________*
+	 *            ______*
+	 *            __*     __*
+	 *            *   *   *   *
+	 * indices: 0 1 2 3 4 5 6 7 8
+	 * 
+	 * BIT[i] = ([i] is a left child) ? the partial sum from its left most
+	 * descendant to itself : the partial sum from its parent (exclusive) to
+	 * itself. (check the range of "__").
+	 * 
+	 * Eg. BIT[1]=a[0], BIT[2]=a[1]+BIT[1]=a[1]+a[0], BIT[3]=a[2],
+	 * BIT[4]=a[3]+BIT[3]+BIT[2]=a[3]+a[2]+a[1]+a[0],
+	 * BIT[6]=a[5]+BIT[5]=a[5]+a[4],
+	 * BIT[8]=a[7]+BIT[7]+BIT[6]+BIT[4]=a[7]+a[6]+...+a[0], ...
+	 * 
+	 * Thus, to update a[1]=BIT[2], we shall update BIT[2], BIT[4], BIT[8],
+	 * i.e., for current [i], the next update [j] is j=i+(i&-i) //double the
+	 * last 1-bit from [i].
+	 * 
+	 * Similarly, to get the partial sum up to a[6]=BIT[7], we shall get the
+	 * sum of BIT[7], BIT[6], BIT[4], i.e., for current [i], the next
+	 * summand [j] is j=i-(i&-i) // delete the last 1-bit from [i].
+	 * 
+	 * To obtain the original value of a[7] (corresponding to index [8] of
+	 * BIT), we have to subtract BIT[7], BIT[6], BIT[4] from BIT[8], i.e.,
+	 * starting from [idx-1], for current [i], the next subtrahend [j] is
+	 * j=i-(i&-i), up to j==idx-(idx&-idx) exclusive. (However, a quicker
+	 * way but using extra space is to store the original array.)
+"""
 
-class SegmentTreeNode(object):
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
-        self.left = self.right = None
-        self.sum = 0
-            
 class NumArray(object):
     def __init__(self, nums):
         """
         initialize your data structure here.
         :type nums: List[int]
         """
-        self.root = self.buildTree(nums, 0, len(nums) - 1)
+        self.nums = nums
+        n = len(nums)
+        self.bits = [0] * (n + 1)
+        for i, num in enumerate(nums):
+            self.updateTree(i + 1, num)
         
     def update(self, i, val):
         """
@@ -23,8 +60,9 @@ class NumArray(object):
         :type val: int
         :rtype: int
         """
-        self.doUpdate(self.root, i, val)
-        return val
+        delta = val - self.nums[i]
+        self.nums[i] = val
+        self.updateTree(i + 1, delta)
         
     def sumRange(self, i, j):
         """
@@ -33,46 +71,29 @@ class NumArray(object):
         :type j: int
         :rtype: int
         """
-        return self.doSumRange(self.root, i, j)
-    
-    def buildTree(self, nums, start, end):
-        if start > end: return None
-        r_node = SegmentTreeNode(start, end)
-        if start == end:
-            r_node.sum = nums[start]
-        else:
-            mid = start + (end - start) / 2
-            r_node.left = self.buildTree(nums, start, mid)
-            r_node.right = self.buildTree(nums, mid + 1, end)
-            r_node.sum = r_node.left.sum + r_node.right.sum
-        return r_node
-    
-    def doUpdate(self, root, pos, val):
-        # if pos < root.start or pos > root.end: raise Exception
-        if root.start == root.end:
-            root.sum = val
-        else:
-            mid = root.start + (root.end - root.start) / 2
-            if pos <= mid:
-                self.doUpdate(root.left, pos, val)
-            else:
-                self.doUpdate(root.right, pos, val)
-            root.sum = root.left.sum + root.right.sum
-    
-    def doSumRange(self, root, start, end):
-        # if start < root.start or end > root.end: raise Exception
+        return self.getSum(j) - self.getSum(i-1)
         
-        if root.start == start and root.end == end:
-            return root.sum
-        mid = root.start + (root.end - root.start) / 2
-        if end <= mid:
-            return self.doSumRange(root.left, start, end)
-        elif start > mid:
-            return self.doSumRange(root.right, start, end)
-        else:
-            return self.doSumRange(root.left, start, mid) + self.doSumRange(root.right, mid + 1, end)
+    def updateTree(self, i, val):
+        # update bits[i] and its left descendants with val
+        n = len(self.nums)
+        while i <= n:
+            self.bits[i] += val
+            i = i + (i & -i) # i will point to i's left child
+        
+    def getSum(self, i):
+        # return sum of nums[0 ... i]
+        r_sum = 0
+        j = i + 1
+        while j > 0:
+            r_sum += self.bits[j]
+            j = j - (j & -j) # j will point to j's parent
+        return r_sum
+            
         
         
+        
+
+
 # Your NumArray object will be instantiated and called as such:
 # numArray = NumArray(nums)
 # numArray.sumRange(0, 1)
