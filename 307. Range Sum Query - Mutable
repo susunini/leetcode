@@ -1,46 +1,10 @@
-# Note:
-# Solution 2: Binary Index Tree beats 97% 164ms
-# both update and sumRange O(lgn) tree construction o(nlgn)
-"""
-	 * Binary Indexed Trees (BIT or Fenwick tree):
-	 * https://www.topcoder.com/community/data-science/data-science-
-	 * tutorials/binary-indexed-trees/
-	 * 
-	 * Example: given an array a[0]...a[7], we use a array BIT[9] to
-	 * represent a tree, where index [2] is the parent of [1] and [3], [6]
-	 * is the parent of [5] and [7], [4] is the parent of [2] and [6], and
-	 * [8] is the parent of [4]. I.e.,
-	 * 
-	 * BIT[] as a binary tree:
-	 *            ______________*
-	 *            ______*
-	 *            __*     __*
-	 *            *   *   *   *
-	 * indices: 0 1 2 3 4 5 6 7 8
-	 * 
-	 * BIT[i] = ([i] is a left child) ? the partial sum from its left most
-	 * descendant to itself : the partial sum from its parent (exclusive) to
-	 * itself. (check the range of "__").
-	 * 
-	 * Eg. BIT[1]=a[0], BIT[2]=a[1]+BIT[1]=a[1]+a[0], BIT[3]=a[2],
-	 * BIT[4]=a[3]+BIT[3]+BIT[2]=a[3]+a[2]+a[1]+a[0],
-	 * BIT[6]=a[5]+BIT[5]=a[5]+a[4],
-	 * BIT[8]=a[7]+BIT[7]+BIT[6]+BIT[4]=a[7]+a[6]+...+a[0], ...
-	 * 
-	 * Thus, to update a[1]=BIT[2], we shall update BIT[2], BIT[4], BIT[8],
-	 * i.e., for current [i], the next update [j] is j=i+(i&-i) //double the
-	 * last 1-bit from [i].
-	 * 
-	 * Similarly, to get the partial sum up to a[6]=BIT[7], we shall get the
-	 * sum of BIT[7], BIT[6], BIT[4], i.e., for current [i], the next
-	 * summand [j] is j=i-(i&-i) // delete the last 1-bit from [i].
-	 * 
-	 * To obtain the original value of a[7] (corresponding to index [8] of
-	 * BIT), we have to subtract BIT[7], BIT[6], BIT[4] from BIT[8], i.e.,
-	 * starting from [idx-1], for current [i], the next subtrahend [j] is
-	 * j=i-(i&-i), up to j==idx-(idx&-idx) exclusive. (However, a quicker
-	 * way but using extra space is to store the original array.)
-"""
+# Note
+# Solution 3: segment tree represented as a list
+# for binary tree, there is at most 2*n nodes in the tree (n + n/2 + n/4 + ... + 1 ~ 2n)
+# use a list of 2*n elements to represent a segment tree which is a complete binary tree
+# for a complete binary tree represented as a list, if a node's index is i, its parent node (i/2) , its left child (i*2)
+# and its right child (i*2+1)
+# buildTree(), updateTree() and getSumFromTree() all done in a bottom-up way
 
 class NumArray(object):
     def __init__(self, nums):
@@ -50,9 +14,15 @@ class NumArray(object):
         """
         self.nums = nums
         n = len(nums)
-        self.bits = [0] * (n + 1)
+        self.tree = [0] * (n * 2) 
+        self.buildTree(nums, self.tree)
+        
+    def buildTree(self, nums, tree):
+        n = len(nums)
         for i, num in enumerate(nums):
-            self.updateTree(i + 1, num)
+            tree[n + i] = num
+        for i in range(n - 1, 0, -1):
+            tree[i] = tree[i * 2] + tree[i * 2 + 1]
         
     def update(self, i, val):
         """
@@ -60,10 +30,18 @@ class NumArray(object):
         :type val: int
         :rtype: int
         """
-        delta = val - self.nums[i]
         self.nums[i] = val
-        self.updateTree(i + 1, delta)
+        self.updateTree(i, val, self.tree)
         
+    def updateTree(self, i, val, tree):
+        n = len(self.nums)
+        j = n + i
+        tree[j] = val
+        while j > 0:
+            # parent: j / 2; left of parent: j / 2 * 2
+            tree[j / 2] = tree[j / 2 * 2] + tree[j / 2 * 2 + 1] 
+            j /= 2
+            
     def sumRange(self, i, j):
         """
         sum of elements nums[i..j], inclusive.
@@ -71,27 +49,24 @@ class NumArray(object):
         :type j: int
         :rtype: int
         """
-        return self.getSum(j) - self.getSum(i-1)
+        return self.getSumFromTree(i, j, self.tree)
         
-    def updateTree(self, i, val):
-        # update bits[i] and its left descendants with val
+    def getSumFromTree(self, l, r, tree):
         n = len(self.nums)
-        while i <= n:
-            self.bits[i] += val
-            i = i + (i & -i) # i will point to i's left child
-        
-    def getSum(self, i):
-        # return sum of nums[0 ... i]
         r_sum = 0
-        j = i + 1
-        while j > 0:
-            r_sum += self.bits[j]
-            j = j - (j & -j) # j will point to j's parent
+        l += n; r += n
+        while l <= r:
+            if l % 2 == 1: # l is a right node
+                r_sum += tree[l]
+                l += 1 # now l must be a left node
+            if r % 2 == 0: # r is a left node
+                r_sum += tree[r]
+                r -= 1 # now r must be a right node
+            l /= 2
+            r /= 2
         return r_sum
             
-        
-        
-        
+
 
 
 # Your NumArray object will be instantiated and called as such:
