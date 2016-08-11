@@ -48,7 +48,7 @@ class Solution(object):
         aXorb = 0
         for num in nums:
             aXorb ^= num
-        lastBit = aXorb & (-aXorb)
+        lastBit = aXorb & (-aXorb) # another way: lastBit = (aXorB & (aXorB - 1)) & aXorB 
         A = B = 0
         for num in nums:
             if lastBit & num:
