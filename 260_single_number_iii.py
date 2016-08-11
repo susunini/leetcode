@@ -35,6 +35,10 @@ class Solution(object):
     Solution 2:
     Difference from Solution 1, to get the different bit at the lowest position
     lastBit = aXorb & (-aXorb)
+    Explanation of bitwise or on negative numbers
+    e.g. -15 
+    binary of 15: 1111 -> 'not': 0 -> add 1: 1
+    15 & 15 -> 1111 & 1 = 1
     """
     def singleNumber(self, nums):
         """
