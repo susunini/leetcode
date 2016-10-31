@@ -1,0 +1,43 @@
+# Definition for a point.
+# class Point(object):
+#     def __init__(self, a=0, b=0):
+#         self.x = a
+#         self.y = b
+
+class Solution(object):
+    """ This is a math problem.
+    Two pairs of points are on the same line if they share one point and slope is equal.
+    Slope of a line of a pair of points (x1, y1) and (x2, y2) is
+         float(y2 - y1) / (x2 - x1)
+    Corner case: 1. They are same point 2. This is a vertical line
+    """
+    def get_slope(self, x1, y1, x2, y2):
+        if x1 == x2:
+            return 'inf'
+        else:
+            return float(y2 - y1) / (x2 - x1)
+            
+    def maxPoints(self, points):
+        """
+        :type points: List[Point]
+        :rtype: int
+        """
+        result = 0
+        for i in range(len(points)):
+            overlap = 1
+            slope_to_overlap = collections.defaultdict(int)
+            for j in range(i + 1, len(points)):
+                x1 = points[i].x; y1 = points[i].y
+                x2 = points[j].x; y2 = points[j].y
+                if x1 == x2 and y1 == y2: 
+                    overlap += 1
+                else:
+                    slope_to_overlap[self.get_slope(x1, y1, x2, y2)] += 1
+            if slope_to_overlap:
+                overlap += max([overlap for overlap in slope_to_overlap.values()])
+            result = max(result, overlap)
+        return result
+                    
+                
+                    
+        
