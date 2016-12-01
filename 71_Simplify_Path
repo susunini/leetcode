@@ -1,0 +1,17 @@
+class Solution(object):
+    """ stack """
+    def simplifyPath(self, path):
+        """
+        :type path: str
+        :rtype: str
+        """
+        sl = '/'
+        toks = [t for t in path.split(sl) if t and t != '.']
+        stack = []
+        for tok in toks:
+            if tok == '..':
+                if stack:
+                    stack.pop()
+            else:
+                stack.append(tok)
+        return sl + sl.join(stack)
