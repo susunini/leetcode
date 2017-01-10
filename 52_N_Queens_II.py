@@ -1,0 +1,1 @@
+similar to N-Queens
