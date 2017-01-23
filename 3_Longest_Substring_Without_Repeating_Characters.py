@@ -43,13 +43,13 @@ class Solution(object):
         """
         res = 0
         start = 0
-        chs = [None] * 256
+        li = [None] * 256
         for i, ch in enumerate(s):
             ch = ord(ch)
-            if chs[ch] is not None and chs[ch] >= start:
+            if li[ch] is not None and li[ch] >= start:
                 res = max(res, i - start)
-                start = chs[ch] + 1
-            chs[ch] = i
+                start = li[ch] + 1
+            li[ch] = i
         return res
         
 class Solution(object):
@@ -70,3 +70,23 @@ class Solution(object):
             d[ch] = i
         res = max(res, len(s) - start)
         return res
+    
+class Solution(object):
+    """ Wrong. """
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res = 0
+        start = 0
+        li = [None] * 256
+        for i, ch in enumerate(s):
+            if li[ch] is not None and li[ch] > start:
+                res = max(res, i - start)
+                start = li[ch] + 1
+            li[ch] = i
+        res = max(res, len(s) - start)
+        return res
+            
+        
