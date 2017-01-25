@@ -25,12 +25,31 @@ class Solution(object):
         """
         res = 0
         start = 0
-        d = {}
+        li = [None] * 256
         for i, ch in enumerate(s):
-            if ch in d and d[ch] >= start:
+            if li[ch] is not None and li[ch] >= start:
                 res = max(res, i - start)
-                start = d[ch] + 1
-            d[ch] = i
+                start = li[ch] + 1
+            li[ch] = i
+        res = max(res, len(s) - start)
+        return res
+
+class Solution(object):
+    """ Faster. Intialize list of indexes as all -1s to save comparisons. """
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res = 0
+        start = 0
+        li = [-1] * 256
+        for tail, ch in enumerate(s):
+            ch = ord(ch)
+            if li[ch] >= start:
+                res = max(res, tail - start)
+                start = li[ch] + 1
+            li[ch] = tail
         res = max(res, len(s) - start)
         return res
         
