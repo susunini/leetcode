@@ -52,6 +52,24 @@ class Solution(object):
             li[ch] = tail
         res = max(res, len(s) - start)
         return res
+    
+class Solution(object):
+    """ Calculate length of longest substring at each position. """
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res = 0
+        start = 0
+        li = [-1] * 256
+        for tail, ch in enumerate(s):
+            ch = ord(ch)
+            if li[ch] >= start:
+                start = li[ch] + 1
+            res = max(res, tail - start + 1)
+            li[ch] = tail
+        return res
         
 class Solution(object):
     """ Wrong. """
