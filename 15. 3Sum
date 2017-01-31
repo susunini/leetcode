@@ -1,34 +1,85 @@
-# Note
-
-# Solution 1: O(n^2); beats 100%
-# 2Sum
-# corner cases: duplicate numbers
-
-class Solution:
-    # @param {integer[]} nums
-    # @return {integer[][]}
+class Solution(object):
+    """ Wrong. """
     def threeSum(self, nums):
-        nums.sort()
-        r_list = list()
-        for i in range(len(nums) - 2):
-            if i > 0 and nums[i] == nums[i-1]:
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        for p1, num1 in enumerate(nums):
+            if p1 != 0 and nums[p1] == nums[p1-1]:
                 continue
-            if nums[i] > 0: #
-                break #
-            num1 = nums[i]
-            p1 = i + 1
-            p2 = len(nums) - 1
-            while p1 < p2:
-                num2 = nums[p1]; num3 = nums[p2]
-                if (num2 + num3) == (-num1):
-                    r_list.append((num1, num2, num3))
-                    p1 += 1; p2 -= 1
-                    while p1 < p2 and nums[p1] == num2:
-                        p1 += 1
-                    while p1 < p2 and nums[p2] == num3:
-                        p2 -= 1
-                elif (num2 + num3) < (-num1):
-                    p1 += 1
-                else: # (num2 + num3) > (-num1):
-                    p2 -= 1
-        return r_list
+            p2 = p1 + 1; p3 = len(nums) - 1
+            while p2 < p3:
+                num2 = nums[p2]; num3 = nums[p3]
+                cur_sum = num1 + num2 + num3
+                if cur_sum == 0:
+                    res.append([num1, num2, num3])
+                    p2 += 1; p3 -= 1
+                    while p2 < p3 and nums[p2] == nums[p2-1]: p2 += 1
+                    while p2 < p3 and nums[p3] == nums[p3+1]: p3 -= 1
+                elif cur_sum < 0:
+                    p2 += 1
+                else:
+                    p3 -= 1
+        return res
+        
+class Solution(object):
+    """ Two Pointers.
+    Pay attention to corner cases of duplicate numbers. """
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        for p1, num1 in enumerate(nums):
+            if p1 != 0 and nums[p1] == nums[p1-1]:
+                continue
+            p2 = p1 + 1; p3 = len(nums) - 1
+            while p2 < p3:
+                num2 = nums[p2]; num3 = nums[p3]
+                cur_sum = num1 + num2 + num3
+                if cur_sum == 0:
+                    res.append([num1, num2, num3])
+                    p2 += 1; p3 -= 1
+                    while p2 < p3 and nums[p2] == nums[p2-1]: p2 += 1
+                    while p2 < p3 and nums[p3] == nums[p3+1]: p3 -= 1
+                elif cur_sum < 0:
+                    p2 += 1
+                else:
+                    p3 -= 1
+        return res
+        
+class Solution(object):
+    """ Small changes to optimize speed. """
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        for p1, num1 in enumerate(nums):
+            if num1 > 0:
+                break
+            if p1 != 0 and nums[p1] == nums[p1-1]:
+                continue
+            p2 = p1 + 1; p3 = len(nums) - 1
+            while p2 < p3:
+                num2 = nums[p2]; num3 = nums[p3]
+                cur_sum = num1 + num2 + num3
+                if cur_sum == 0:
+                    res.append([num1, num2, num3])
+                    p2 += 1; p3 -= 1
+                    while p2 < p3 and nums[p2] == nums[p2-1]: p2 += 1
+                    while p2 < p3 and nums[p3] == nums[p3+1]: p3 -= 1
+                elif cur_sum < 0:
+                    p2 += 1
+                else:
+                    p3 -= 1
+        return res
+                    
+                    
+                    
