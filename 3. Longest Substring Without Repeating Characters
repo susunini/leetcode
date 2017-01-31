@@ -1,17 +1,76 @@
-
 class Solution(object):
+    """ Two Pointers. 
+    Use two pointers for start and end of current substring.
+    Use a hash table for checking if a character is repeated in current substring. 
+    """
     def lengthOfLongestSubstring(self, s):
         """
         :type s: str
         :rtype: int
         """
-        ch_to_idx = {}
-        start_idx = 0
-        r_max = 0
+        res = 0
+        start = 0
+        d = {}
         for i, ch in enumerate(s):
-            if ch in ch_to_idx and ch_to_idx[ch] >= start_idx: # ch_to_idx[ch] >= start_idx
-                r_max = max(r_max, i - start_idx)
-                start_idx = ch_to_idx[ch] + 1
-            ch_to_idx[ch] = i
-        r_max = max(r_max, len(s) - start_idx) #
-        return r_max
+            if ch in d and d[ch] >= start:
+                res = max(res, i - start)
+                start = d[ch] + 1
+            d[ch] = i
+        res = max(res, len(s) - start)
+        return res
+
+class Solution(object):
+    """ Same as previous solution except that using a list instead of a dictionary as a hash table. """
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        li = [-1] * 256
+        start = 0
+        res = 0
+        for i, ch in enumerate(s):
+            ch = ord(ch)
+            if li[ch] >= start:
+                res = max(res, i - start)
+                start = li[ch] + 1
+            li[ch] = tail
+        res = max(res, len(s) - start)
+        return res
+
+class Solution(object):
+    """ Simpler code but slower. """
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res = 0
+        start = 0
+        li = [-1] * 256
+        for i, ch in enumerate(s):
+            ch = ord(ch)
+            if li[ch] >= start:
+                start = li[ch] + 1
+            res = max(res, i - start + 1)
+            li[ch] = i
+        return res
+ 
+class Solution(object):
+    """ A generic solution for all similar problems. """
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        counter = collections.Counter()
+        start = 0
+        res = 0
+        for end, ch in enumerate(s):
+            counter[ch] += 1
+            while counter[ch] > 1:
+                counter[s[start]] -= 1
+                start += 1
+            res = max(res, end-start+1)
+        return res
+
