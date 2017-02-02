@@ -26,7 +26,8 @@ class Solution(object):
             p.next = p2
         res = dummy.next; dummy.next = None
         return res
- 
+    
+    
 class Solution(object):
     """ Same as previous. Use one-line ternary. """
     def mergeTwoLists(self, l1, l2):
@@ -43,6 +44,25 @@ class Solution(object):
             else:
                 p.next = p2; p2 = p2.next
             p = p.next
-        p.next = p1 if p1 else p2
+        p.next = p1 if p1 else p2 # or p.next = p1 or p2
         res = dummy.next; dummy.next = None
         return res
+
+    
+class Solution(object):
+    """ Recursive solution. """
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if not l1 or not l2:
+            return l1 or l2
+        if l1.val <= l2.val:
+            l1.next = self.mergeTwoLists(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoLists(l1, l2.next)
+            return l2
+            return l2
