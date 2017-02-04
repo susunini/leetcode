@@ -11,6 +11,8 @@ class Solution(object):
     of n between the two pinters. Then we move the two pointers at the same speed until the fast 
     pointer hit tail.
     Since the question gives that n is valid, not too many checks have to be put in place.
+    
+    Alternative: do not use dummy node
     """
     def removeNthFromEnd(self, head, n):
         """
