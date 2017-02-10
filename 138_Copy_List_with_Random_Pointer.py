@@ -64,6 +64,78 @@ class Solution(object):
         :type head: RandomListNode
         :rtype: RandomListNode
         """
+        p = head
+        while p:
+            p.next = RandomListNode(p.label)
+            p = p.next.next
+        p = head
+        while p:
+            p.next.random = p.random.next
+            p = p.next.next
+        dummy = RandomListNode(0)
+        p2 = dummy
+        p = head
+        while p:
+            p.next, p2.next = p.next.next, p.next
+            p = p.next; p2 = p2.next
+        return dummy.next
+    
+class Solution(object):
+    """ Wrong. """
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
+        p = head
+        while p:
+            new_node = RandomListNode(p.label)
+            p.next, new_node.next = new_node, p.next
+            p = p.next.next
+        p = head
+        while p:
+            p.next.random = p.random.next
+            p = p.next.next
+        dummy = RandomListNode(0)
+        p2 = dummy
+        p = head
+        while p:
+            p.next, p2.next = p.next.next, p.next
+            p = p.next; p2 = p2.next
+        return dummy.next
+    
+class Solution(object):
+    """ Previous solution with a dummy node. """
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
+        p = head
+        while p:
+            new_node = RandomListNode(p.label)
+            p.next, new_node.next = new_node, p.next
+            p = p.next.next
+        p = head
+        while p:
+            if p.random: 
+                p.next.random = p.random.next
+            p = p.next.next
+        dummy = RandomListNode(0)
+        p2 = dummy
+        p = head
+        while p:
+            p.next, p2.next = p.next.next, p.next
+            p = p.next; p2 = p2.next
+        return dummy.next
+
+class Solution(object):
+    """ Wrong. """
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
         if not head:
             return None
         d = collections.defaultdict(lambda: RandomListNode(0))
