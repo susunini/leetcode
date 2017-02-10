@@ -10,6 +10,10 @@
 #         self.next = None
 
 class Solution(object):
+    """ Linked List. 98%.
+    
+    Locate prev which is the place to insert. 
+    Remember to reposition prev; but only in certain cases to avoid LTE. """
     def insertionSortList(self, head):
         """
         :type head: ListNode
@@ -36,6 +40,23 @@ class Solution(object):
         r_node = dummy_node.next
         dummy_node.next = None
         return r_node
+
+class Solution(object):
+    """ Linked List. 73%. """
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        p = head
+        while p:
+            p2 = dummy
+            while p2.next and p2.next.val < p.val:
+                p2 = p2.next
+            p2.next, p.next, p = p, p2.next, p.next
+        return dummy.next
+        
             
                 
             
