@@ -34,6 +34,35 @@ class Solution(object):
                 return False
             p1 = p1.next; p2 = p2.next
         return True
+    
+class Solution(object):
+    """ 2017-02-10 """
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        if not head:
+            return True
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        h1 = head; h2 = slow.next
+        slow.next = None
+        
+        prev = None; cur = h2
+        while cur:
+            cur.next, prev, cur = prev, cur, cur.next
+        h2 = prev
+        
+        p1 = h1; p2 = h2
+        while p2:
+            if p2.val != p1.val:
+                return False
+            p1 = p1.next; p2 = p2.next
+        return True
 
 class Solution(object):
     """ Optional: restore the list while comparing first half with second. """
