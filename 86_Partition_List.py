@@ -61,9 +61,11 @@ class Solution(object):
         p = head
         while p:
             if p.val < x:
-                p1.next, p.next, p, p1 = p, None, p.next, p1.next
+                p1.next, p.next, p = p, None, p.next
+                p1 = p1.next
             else:
-                p2.next, p.next, p, p2 = p, None, p.next, p2.next
+                p2.next, p.next, p = p, None, p.next, 
+                p2 = p2.next
         p1.next = d2.next
         return d1.next
                 
