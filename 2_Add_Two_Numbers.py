@@ -44,7 +44,28 @@ class Solution(object):
         dummy.next = None
         return res
 
-
+class Solution(object):
+    """ Wrong. """
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        p1 = l1; p2 = l2; p = dummy
+        carry = 0
+        while p1 or p2:
+            val1 = 0; val2 = 0
+            if p1: val1 = p1.val; p1 = p1.next
+            if p2: val2 = p2.val; p2 = p2.next
+            carry, val = divmod(val1 + val2 + carry, 10)
+            p.next = ListNode(val)
+            p = p.next
+        res = dummy.next
+        dummy.next = None
+        return res
+    
 class Solution(object):
     """ Slightly slow. 
     
