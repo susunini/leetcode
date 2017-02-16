@@ -1,8 +1,9 @@
 class Solution(object):
     """ Dynamic Programming. 
     
+    dp[i] - number of unique binary search trees with i consecutive nodes
     dp[n]
-    dp[i] = sum(max(dp[j], 1), max(dp[i-j-1], 1) for j from 0 to i-1)"""
+    dp[i] = sum(max(dp[j], 1), max(dp[i-j-1], 1) for j from 0 to i-1)
     dp[0] = 0
     """
     def numTrees(self, n):
