@@ -46,6 +46,24 @@ class Solution(object):
                heapq.heappush(heap, (node.next.val, node.next))
             p.next = node; node.next = None; p = p.next
         return dummy.next
+    
+class Solution(object):
+    """ Wrong. """
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        p = dummy
+        heap = [(head.val, head) for head in lists if head]
+        heapq.heapify(heap)
+        while heap:
+            val, node = heapq.pop(heap)
+            if node.next:
+               heapq.push((node.next.val, node.next))
+            p.next = node; node.next = None; p = p.next
+        return dummy.next
         
         
   
