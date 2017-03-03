@@ -1,3 +1,57 @@
+class LRUCache(object):
+    """ Design. Data Structure.
+    
+    Use a dictionary and a python list.
+    Python list (array internally) is expensive with del and insert.
+    """
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.cap = capacity
+        self.d = dict()
+        self.li = list()
+        
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.d:
+            return -1
+        
+        idx = self.li.index(key)
+        del self.li[idx]
+        self.li.insert(0, key)
+        return self.d[key]
+        
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        if self.cap < 1:
+            return
+        if key in self.d:
+            idx = self.li.index(key)
+            del self.li[idx]
+        else:
+            if len(self.li) == self.cap:
+                del_key = self.li.pop()
+                del self.d[del_key]
+        self.d[key] = value
+        self.li.insert(0, key)
+        
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
 class Node(object):
     """ Node in a double linked list """
     def __init__(self, key, value):
