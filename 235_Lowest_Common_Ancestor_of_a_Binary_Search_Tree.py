@@ -6,6 +6,7 @@
 #         self.right = None
 
 class Solution(object):
+    """ Tree. beats 98% """
     def lowestCommonAncestor(self, root, p, q):
         """
         :type root: TreeNode
@@ -24,4 +25,11 @@ class Solution(object):
                 cur_root = cur_root.right
             else:
                 return cur_root
+            
+class Solution(object):            
+    def lowestCommonAncestor(self, root, p, q):
+        a, b = sorted([p.val, q.val])
+        while not a <= root.val <= b:
+            root = (root.left, root.right)[a > root.val]
+        return root
             
