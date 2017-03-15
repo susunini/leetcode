@@ -5,6 +5,9 @@ class Node(object):
         self.child = None
         
 class Solution(object):
+    """ Google. 
+    
+    1. queue 2. maintain tail 3. another pointer for child """
     def flattern_list(self, head):
          if not head:
              return head
