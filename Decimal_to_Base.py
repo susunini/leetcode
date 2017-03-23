@@ -1,5 +1,5 @@
 class Solution(object):
-    """ Google. """
+    """ Google. Math. """
     def decimal_to_base(self, num, base):
         res = ''
         d = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
