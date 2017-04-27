@@ -28,3 +28,22 @@ class Solution(object):
             cool_next = max(cool, sell)
             buy, sell, cool = buy_next, sell_next, cool_next
         return max(buy, sell, cool) # or return max(sell, cool)
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if not prices:
+            return 0
+        sell = 0
+        buy = -prices[0]
+        cool = 0
+        for price in prices[1:]:
+            cur_sell = max(sell, buy + price)
+            cur_buy = max(buy, cool - price)
+            cur_cool = max(cool, sell)
+            sell, buy, cool = cur_sell, cur_buy, cur_cool
+        return max(sell, buy, cool)
+    
