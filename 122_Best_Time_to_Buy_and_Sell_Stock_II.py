@@ -11,6 +11,11 @@ class Solution(object):
         return res
         
 class Solution(object):
+    """
+    If a <= b <= c <= d, maxProfit = d - a =  (b - a) + (c - b) + …
+    If a <= b > c <= d maxProfit = (b - a) + (d - a). 
+    We can focus on finding monotone sequence.
+    """
     def maxProfit(self, prices):
         """
         :type prices: List[int]
