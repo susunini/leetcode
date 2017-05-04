@@ -23,9 +23,9 @@ class Solution(object):
         return res
 
 class Solution(object):
-    """ Tree. Iteractive.
+    """ Tree. Iteractive. Stack.
     
-    Append both right and left child but right child first. """
+    Stack both right and left child but right child first. """
     def preorderTraversal(self, root):
         """
         :type root: TreeNode
@@ -40,6 +40,25 @@ class Solution(object):
             res.append(cur.val)
             stack.append(cur.right)
             stack.append(cur.left)
+        return res
+    
+class Solution(object):
+    """ Tree. Iteractive. Stack.
+    
+    Stack only right child. """
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        stack = [root]
+        while stack:
+            cur = stack.pop()
+            while cur: 
+                res.append(cur.val)
+                stack.append(cur.right)
+                cur = cur.left
         return res
             
         
