@@ -62,7 +62,7 @@ class Solution(object):
         return res.val
         
 class Solution(object):
-    """ Tree. BFS using a queue but from right to left. Beats 27%.
+    """ Tree. BFS. use a queue but from right to left. Beats 27%.
     """
     def findBottomLeftValue(self, root):
         """
@@ -79,7 +79,7 @@ class Solution(object):
         return res.val
         
 class Solution(object):
-    """ Tree. BFS with ticks. Beats 69%. """
+    """ Tree. BFS. tricks. Beats 69%. """
     def findBottomLeftValue(self, root):
         """
         :type root: TreeNode
