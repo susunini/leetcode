@@ -19,6 +19,8 @@ class Solution(object):
             res.append(node.val)
             doTraversal(node.right)
         return res
+    
+# TODO: Morri's Traversal
             
             
         
