@@ -6,6 +6,7 @@
 #         self.right = None
 
 class Solution(object):
+    """ Tree. Recursive. """
     def sumOfLeftLeaves(self, root):
         """
         :type root: TreeNode
@@ -19,6 +20,7 @@ class Solution(object):
             return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
             
 class Solution(object):
+    """ Tree. BFS. """
     def sumOfLeftLeaves(self, root):
         """
         :type root: TreeNode
