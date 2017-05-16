@@ -6,6 +6,7 @@
 #         self.right = None
 
 class Solution(object):
+    """ Tree. Recursive. """
     def isSame(self, s, t):
         if not s and not t:
             return True
