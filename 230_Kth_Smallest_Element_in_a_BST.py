@@ -25,7 +25,10 @@ class Solution(object):
         return res[k-1]
     
 class Solution(object):
-    """ Best: In-order Traversal. Recursive. Pruning. 112ms. """
+    """ Best: In-order Traversal. Recursive. Pruning. 112ms. 
+    
+    Enter stack in the following order: left to right top to down
+    """
     def kthSmallest(self, root, k):
         """
         :type root: TreeNode
