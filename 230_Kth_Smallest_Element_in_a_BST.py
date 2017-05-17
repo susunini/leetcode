@@ -28,6 +28,7 @@ class Solution(object):
     """ Best: In-order Traversal. Recursive. Pruning. 112ms. 
     
     Enter stack in the following order: left to right top to down
+    Example
     """
     def kthSmallest(self, root, k):
         """
