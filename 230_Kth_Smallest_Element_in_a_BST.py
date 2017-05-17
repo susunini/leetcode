@@ -46,7 +46,7 @@ class Solution(object):
         return res[-1]
     
 class Solution(object):
-    """ In-order Traversal. Recursive. Pruning. No extra space. 152ms. """
+    """ In-order Traversal. Recursive. Pruning. No extra space except stack. 152ms. """
     def kthSmallest(self, root, k):
         """
         :type root: TreeNode
@@ -90,7 +90,7 @@ class Solution(object):
         return res[-1]
     
 class Solution(object):
-    """ In-ordert Traversal. Iteractive. Pruning. No Extra Space. 96ms """
+    """ In-ordert Traversal. Iteractive. Pruning. No extra Space except stack. 96ms """
     def kthSmallest(self, root, k):
         """
         :type root: TreeNode
@@ -109,6 +109,30 @@ class Solution(object):
                 return top.val
             cur = top.right
         return res[-1]
+    
+class Solution(object):
+    """ 79ms. """
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        if not root: 
+            return
+        stack = [(root,1)]
+        while stack:
+            top, i = stack.pop()
+            if i == 1:
+                stack.append((top, 2))
+                if top.left:
+                    stack.append((top.left, 1))
+            elif i == 2:
+                k -= 1
+                if k == 0:
+                    return top.val
+                if top.right:
+                    stack.append((cur.right, 1))
         
 
         
