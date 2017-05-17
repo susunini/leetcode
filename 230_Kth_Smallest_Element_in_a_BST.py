@@ -132,7 +132,7 @@ class Solution(object):
                 if k == 0:
                     return top.val
                 if top.right:
-                    stack.append((cur.right, 1))
+                    stack.append((top.right, 1))
         
 
         
