@@ -6,7 +6,7 @@
 #         self.right = None
 
 class Solution(object):
-    """ Tree. Recursive. """
+    """ Tree. Recursive. 99ms. """
     def rob(self, root):
         """
         :type root: TreeNode
