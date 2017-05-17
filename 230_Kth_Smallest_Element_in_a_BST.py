@@ -25,7 +25,7 @@ class Solution(object):
         return res[k-1]
     
 class Solution(object):
-    """ In-order Traversal. Recursive. Pruning. 112ms. """
+    """ Best: In-order Traversal. Recursive. Pruning. 112ms. """
     def kthSmallest(self, root, k):
         """
         :type root: TreeNode
