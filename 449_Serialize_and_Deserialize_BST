@@ -56,6 +56,56 @@ class Codec:
                 node.right = new_node
             stack.append(new_node)
         return root
+
+class Codec:
+   """ 136 ms. """
+
+    def preorder(self, root):
+        if not root:
+            return
+        self.res = ' '.join([self.res, str(root.val)])
+        self.preorder(root.left)
+        self.preorder(root.right)
+        
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        self.res = ''
+        self.preorder(root)
+        return self.res
+        
+        
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        if not data:
+            return None
+        data = data.split()
+        root = TreeNode(int(data[0]))
+        stack = [root]
+        for ch in data[1:]:
+            new_node = TreeNode(int(ch))
+            if new_node.val < stack[-1].val:
+                stack[-1].left = new_node
+            else:
+                while stack and new_node.val > stack[-1].val:
+                    node = stack.pop()
+                node.right = new_node
+            stack.append(new_node)
+        return root
+        
+        
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.deserialize(codec.serialize(root))
             
         
 
