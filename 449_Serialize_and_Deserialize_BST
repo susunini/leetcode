@@ -6,7 +6,17 @@
 #         self.right = None
 
 class Codec:
-    """ Tree. Pre-order traversal. 156 ms. """
+    """ Tree. Pre-order traversal. 156 ms. 
+    
+    The preorder sequence of a BST: root | left branch (< root) | right branch (> root)
+    We can use this rule to deserialize.
+    
+    We iterate the sequence and use a stack to maintain unfinished nodes on the path from root to previous traversed node.
+    If current node is smaller than the top node(previous traversed node) in the stack, it must be the left node of the top node.
+    Otherwise, it must be the right node of some node in the stack. We keep poping from the stack until the
+    current node is smaller than the top node or stack is empty. The current node is the right node of the last poped node.
+    Up until now, We have found left and right nodes for all the poped nodes.
+    """
 
     def serialize(self, root):
         """Encodes a tree to a single string.
