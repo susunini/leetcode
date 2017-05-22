@@ -6,7 +6,9 @@
 #         self.right = None
 
 class Solution(object):
-    """ Recursive Solution. """
+    """ Tree. Recursive Solution. 
+    
+    Nested function is slow. """
     def sortedArrayToBST(self, nums):
         """
         :type nums: List[int]
