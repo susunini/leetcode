@@ -28,3 +28,25 @@ class Solution(object):
                 if node.right: queue.append(node.right)
                 if i == n-1: res.append(node.val)
         return res
+    
+class Solution(object):
+    """ DFS also works but not as natural as BFS.
+    def dfs(self, root, level, res):
+        if not root:
+            return
+        try:
+            res[level] = root.val
+        except IndexError:
+            res.append(root.val)
+        self.dfs(root.left, level+1, res)
+        self.dfs(root.right, level+1, res)
+            
+        
+    def rightSideView(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        self.dfs(root, 0, res)
+        return res
