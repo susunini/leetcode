@@ -6,7 +6,10 @@
 #         self.right = None
 
 class BSTIterator(object):
-    """ Tree. Binary Search Tree. Stack. 132 ms. """
+    """ Tree. Binary Search Tree. Stack. 132 ms. 
+    
+    Once we get to a node, the smallest one is its leftmost descendant. If it does not have
+    a left branch, then the next smallest one is its ancestor. """
     def __init__(self, root):
         """
         :type root: TreeNode
