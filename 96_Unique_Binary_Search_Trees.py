@@ -1,5 +1,5 @@
 class Solution(object):
-    """ Dynamic Programming. 
+    """ Dynamic Programming. Tree.
     
     dp[i] - number of unique binary search trees with i consecutive nodes
     dp[n]
