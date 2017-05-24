@@ -7,7 +7,7 @@
 #         self.next = None
 
 class Solution:
-    """ Linked List. Tree.
+    """ Linked List. Tree. 
     
     We keep two pointers, p for parent level and c for child level.
     We can easily find c.next with help of parent level because nodes in parent level is already
@@ -26,3 +26,18 @@ class Solution:
                 if p.right: c.next = p.right; c = c.next
                 p = p.next
             p = dummy.next; dummy.next = None
+            
+def connect(self, node):
+    """ Same idea but using one loop. """
+    tail = dummy = TreeLinkNode(0)
+    while node:
+        tail.next = node.left
+        if tail.next:
+            tail = tail.next
+        tail.next = node.right
+        if tail.next:
+            tail = tail.next
+        node = node.next
+        if not node:
+            tail = dummy
+            node = dummy.next
