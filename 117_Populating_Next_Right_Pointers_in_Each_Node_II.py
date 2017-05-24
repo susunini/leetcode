@@ -7,7 +7,8 @@
 #         self.next = None
 
 class Solution:
-    """ Depth First Traversal
+    """ Linked List. Tree.
+    
     We keep two pointers, p for parent level and c for child level.
     We can easily find c.next with help of parent level because nodes in parent level is already
     linked.
