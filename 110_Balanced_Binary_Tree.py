@@ -65,18 +65,20 @@ class Solution(object):
         right_dep = self.getDepth(root.right)
         return left_dep != -1 and right_dep != -1 and abs(left_dep - right_dep) <= 1
     
+UNBAL = -1
+
 class Solution(object):
-    """ 75ms. """
+    """ 88ms. """
     def getDepth(self, root):
         if not root:
             return 0
         left_dep = self.getDepth(root.left)
-        if left_dep == -1:
-            return -1
+        if left_dep == UNBAL:
+            return UNBAL
         right_dep = self.getDepth(root.right)
-        if right_dep == -1:
-            return -1
-        return max(left_dep, right_dep) + 1 if abs(left_dep - right_dep) <= 1 else -1
+        if right_dep == UNBAL:
+            return UNBAL
+        return max(left_dep, right_dep) + 1 if abs(left_dep - right_dep) <= 1 else UNBAL
         
         
     def isBalanced(self, root):
@@ -84,6 +86,6 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return self.getDepth(root) != -1
+        return self.getDepth(root) != UNBAL
         
         
