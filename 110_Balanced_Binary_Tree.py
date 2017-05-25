@@ -6,7 +6,8 @@
 #         self.right = None
 
 class Solution(object):
-    """ Wrong definition of height balanced tree -> max depth of leaf node - min depth of leaf node <= 1
+    """ Wrong. Different fromt this problem, another definition of height balanced tree. 
+    -> max depth of leaf node - min depth of leaf node <= 1
     For example
     1
       2
@@ -63,5 +64,26 @@ class Solution(object):
         left_dep = self.getDepth(root.left)
         right_dep = self.getDepth(root.right)
         return left_dep != -1 and right_dep != -1 and abs(left_dep - right_dep) <= 1
+    
+class Solution(object):
+    """ 75ms. """
+    def getDepth(self, root):
+        if not root:
+            return 0
+        left_dep = self.getDepth(root.left)
+        if left_dep == -1:
+            return -1
+        right_dep = self.getDepth(root.right)
+        if right_dep == -1:
+            return -1
+        return max(left_dep, right_dep) + 1 if abs(left_dep - right_dep) <= 1 else -1
+        
+        
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        return self.getDepth(root) != -1
         
         
