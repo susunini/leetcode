@@ -1,5 +1,5 @@
 class Solution(object):
-    """ Tree. Recursive. O(logn*logn)
+    """ Tree. Recursive. O(logn*logn). 185ms. 
     
     Number of nodes in a full binary tree = 2^k - 1 = 1 << k - 1 where k is tree height
     """
