@@ -1,5 +1,5 @@
 class Solution(object):
-    """ Tree. Recursive. 
+    """ Tree. Recursive. O(logn*logn)
     
     Number of nodes in a full binary tree = 2^k - 1 = 1 << k - 1 where k is tree height
     """
@@ -20,7 +20,6 @@ class Solution(object):
         while cur:
             right_height += 1
             cur = cur.left
-        print left_height, right_height
         if left_height == right_height:
             return (1 << left_height) + self.countNodes(root.right)
         else:
