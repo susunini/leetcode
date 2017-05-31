@@ -1,3 +1,5 @@
+""" DFS -> postorder """
+
 class Solution(object):
     """ Wrong. """
     def maxDepth(self, root):
@@ -29,6 +31,7 @@ class Solution(object):
         return getDepth(root)
         
 class Solution(object):
+    """ Best. """
     def maxDepth(self, root):
         """
         :type root: TreeNode
