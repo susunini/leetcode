@@ -75,9 +75,7 @@ class Codec:
         """
         self.res = ''
         self.preorder(root)
-        return self.res
-        
-        
+        return self.res        
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
