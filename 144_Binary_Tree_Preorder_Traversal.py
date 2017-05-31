@@ -6,7 +6,7 @@
 #         self.right = None
 
 class Solution(object):
-    """ Tree. Recursive. """
+    """ Tree. Recursive. 49ms. """
     def preorderTraversal(self, root):
         """
         :type root: TreeNode
@@ -21,9 +21,28 @@ class Solution(object):
             do(root.right)
         do(root)
         return res
-
+    
 class Solution(object):
-    """ Tree. Iteractive. Stack.
+    """ Tree. Iteractive. Stack. 52ms. 
+    
+    Stack both right and left child. """
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        cur = root; stack = []
+        while cur or stack:
+            while cur:
+                res.append(cur.val)
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop().right
+        return res
+    
+class Solution(object):
+    """ Tree. Iteractive. Stack. 49ms. 
     
     Stack both right and left child but right child first. """
     def preorderTraversal(self, root):
@@ -43,7 +62,7 @@ class Solution(object):
         return res
     
 class Solution(object):
-    """ Tree. Iteractive. Stack.
+    """ Tree. Iteractive. Stack. 42ms. 
     
     Stack only right child. """
     def preorderTraversal(self, root):
