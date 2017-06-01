@@ -1,4 +1,7 @@
-""" Trie. 495ms(39%). """
+""" Trie. 495ms(39%). 
+
+Faster if using dict/defaultdict.
+"""
 
 class TrieNode(object):
     def __init__(self):
