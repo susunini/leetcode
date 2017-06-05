@@ -1,5 +1,10 @@
 class Solution(object):
-    """ Hash table. 589ms(92%). """
+    """ Hash table. 589ms(92%). 
+    Cases
+    ['', 'aba'] ['aba', '']
+    ['ab', 'ba'] ['ba', 'ab']
+    ['b', 'ab'], ['ab', 'a']
+    """
     def palindromePairs(self, words):
         """
         :type words: List[str]
