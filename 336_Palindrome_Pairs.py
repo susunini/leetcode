@@ -1,5 +1,8 @@
 class Solution(object):
-    """ Hash table. 589ms(92%). 
+    """ Hash table. Trie. O(n*k*k) 589ms(92%). 
+    
+    Use hash table instead trie to save memory. 
+    
     Cases
     ['', 'aba'] ['aba', '']
     ['ab', 'ba'] ['ba', 'ab']
