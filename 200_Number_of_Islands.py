@@ -1,3 +1,30 @@
+class Solution(object):
+    """ Backtracing. 156ms(40%). """
+    def dfs(self, i, j, grid):
+        m = len(grid); n = len(grid[0])
+        if i < 0 or i >= m or j < 0 or j >= n:
+            return
+        if grid[i][j] != '1':
+            return
+        grid[i][j] = 'X'
+        self.dfs(i-1, j, grid)
+        self.dfs(i+1, j, grid)
+        self.dfs(i, j-1, grid)
+        self.dfs(i, j+1, grid)
+        
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        res = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    res += 1
+                    self.dfs(i, j, grid)
+        return res
+    
 """ Union Find. Wrong. """
 class IslandUnionFind(object):
     def __init__(self, grid):
