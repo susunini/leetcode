@@ -188,5 +188,70 @@ class Solution(object):
                 iuf.union((i,j), (i,j-1))
                 iuf.union((i,j), (i, j+1))
         return iuf.count
+
+class Solution(object):
+    """ Union Find. 2nd Round. 188ms(23%). 
+    
+    Summary of union find
+    1. maintain two variables
+    count - count of unions
+    parents - parent of each element
+    initialize count and parents first
+    2. methods
+    getRoot(e) - root's parent is itself
+    isConnected(e1, e2) - find roots of e1 and e2 return True if roots are equal otherwise return False
+    union(e1, e2) - find roots of e1 and e2 return True if roots are equal; otherwise set root of e1 
+    as root e2 or vice versa and return True.
+    """
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if len(grid) < 1 or len(grid[0]) < 1:
+            return 0
+        self.count = 0 # Wrong: count = 0
+        m = len(grid)
+        n = len(grid[0])
+        parents = [None]*(m*n)
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    self.count += 1
+        
+        for i in range(len(parents)):
+            parents[i] = i
+        
+        def getRoot(e):
+            while e != parents[e]:
+                e = parents[e]
+            return e
+        
+        def isConnected(e1, e2):
+            return getRoot(e1) == getRoot(e2)
+            
+        def union(e1, e2):
+            """ union two elements. 
+            :return False if e1 and e2 is already connected; 
+            otherwise return True. """
+            r1, r2 = getRoot(e1), getRoot(e2)
+            if r1 == r2:
+                return False
+            parents[r1] = r2
+            self.count -= 1 # important
+            return True
+            
+        def getIndex(x, y):
+            return x*n + y
+            
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    for x,y in [(i-1, j), (i+1, j), (i, j-1), (i, j+1)]:
+                        if 0 <= x < m and 0 <= y < n and grid[x][y] == '1':
+                            union(getIndex(i,j), getIndex(x,y))
+                        
+        return self.count
         
         
