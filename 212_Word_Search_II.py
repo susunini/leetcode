@@ -46,12 +46,10 @@ class Solution(object):
             return
         next_root = root.children[ch]
         next_word = word + ch
-        tmp = board[i][j]; board[i][j] = None
         self.dfs(board, i+1, j, next_root, next_word, res)
         self.dfs(board, i-1, j, next_root, next_word, res)
         self.dfs(board, i, j+1, next_root, next_word, res)
         self.dfs(board, i, j-1, next_root, next_word, res)
-        board[i][j] = tmp
         
 class Solution(object):
     """ Trie. Backtracing. """
@@ -81,7 +79,7 @@ class Solution(object):
             return
         next_root = root.children[ch]
         next_word = word + ch
-        tmp = board[i][j]; board[i][j] = None
+        tmp = board[i][j]; board[i][j] = None # cannot be reused
         self.dfs(board, i+1, j, next_root, next_word, res)
         self.dfs(board, i-1, j, next_root, next_word, res)
         self.dfs(board, i, j+1, next_root, next_word, res)
