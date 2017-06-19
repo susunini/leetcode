@@ -24,7 +24,7 @@ class Solution:
         return match[node]
 
 class Solution:
-    """ Graph. 30%. """
+    """ Graph. Hash table. 30%. """
     # @param node, a undirected graph node
     # @return a undirected graph node
     def cloneGraph(self, node):
