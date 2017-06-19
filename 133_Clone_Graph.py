@@ -5,6 +5,25 @@
 #         self.neighbors = []
 
 class Solution:
+    """ Wrong. """
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        if not node: 
+            return None
+        match = dict()
+        queue = [node]
+        while queue:
+            node = queue.pop(0)
+            if node not in match:
+                new_node = UndirectedGraphNode(node.label)
+                match[node] = new_node
+                queue += node.neighbors
+        for node, new_node in match.items():
+            new_node.neighbors = [match[neighbor] for neighbor in node.neighbors]
+        return match[node]
+
+class Solution:
     """ Graph. 30%. """
     # @param node, a undirected graph node
     # @return a undirected graph node
