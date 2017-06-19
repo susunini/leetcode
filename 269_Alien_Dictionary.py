@@ -72,6 +72,30 @@ class Solution(object):
                         
         return ''.join(res) if n == 0 else ''
             
-            
+        
+class Solution(object):
+    """  StefanPochmann's Solution. 10%. """
+    def alienOrder(self, words):
+        """
+        :type words: List[str]
+        :rtype: str
+        """
+        less = [] # edges less[0] list of start less[1] list of end
+        for pair in zip(words, words[1:]):
+            for a, b in zip(*pair):
+                if a != b:
+                    less += a + b,
+                    break
+        chars = set(''.join(words))
+        order = []
+        while less:
+            free = chars - set(zip(*less)[1]) # free- leaves
+            if not free:
+                return ''
+            order += free
+            less = filter(free.isdisjoint, less) 
+            chars -= free
+        return ''.join(order + list(chars))
+        
                 
         
