@@ -74,7 +74,7 @@ class Solution(object):
             
         
 class Solution(object):
-    """  StefanPochmann's Solution. 10%. """
+    """  StefanPochmann's Solution 1. 10%. """
     def alienOrder(self, words):
         """
         :type words: List[str]
@@ -96,6 +96,27 @@ class Solution(object):
             less = filter(free.isdisjoint, less) 
             chars -= free
         return ''.join(order + list(chars))
-        
+
+class Solution(object):
+    """ StefanPochmann's Solution 2. """
+    def alienOrder(self, words):
+        pre, suc = collections.defaultdict(set), collections.defaultdict(set)
+        for pair in zip(words, words[1:]):
+            for a, b in zip(*pair):
+                if a != b:
+                    suc[a].add(b)
+                    pre[b].add(a)
+                    break
+        chars = set(''.join(words))
+        free = chars - set(pre)
+        order = ''
+        while free:
+            a = free.pop()
+            order += a
+            for b in suc[a]:
+                pre[b].discard(a)
+                if not pre[b]:
+                    free.add(b)
+        return order * (set(order) == chars)
                 
         
