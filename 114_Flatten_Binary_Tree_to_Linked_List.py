@@ -26,5 +26,29 @@ class Solution(object):
                 cur.right = cur.left; cur.left = None
             cur = cur.right
             
+ class Solution(object):
+    """ Tree. 49ms(74%). 20170620. """
+    def dfs(self, root):
+        """ return the right most node after flattening. """
+        if not root:
+            return None
+        if not root.left and not root.right: #
+            return root
+        rt_rt_most= self.dfs(root.right)
+        lft_rt_most = self.dfs(root.left)
+        if lft_rt_most: 
+            lft_rt_most.right = root.right
+            root.right = root.left
+            root.left = None #
+        return rt_rt_most if rt_rt_most else lft_rt_most #
+        
+        
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        self.dfs(root)
+            
             
         
