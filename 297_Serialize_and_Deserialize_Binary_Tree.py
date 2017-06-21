@@ -99,7 +99,7 @@ class Codec:
         while stack:
             node = stack.pop()
             res += ' ' if res else ''
-            res += str(node.val) if node else 'None'
+            res += str(node.val) if node else '#'
             if node:
                 stack.append(node.right)
                 stack.append(node.left)
@@ -110,7 +110,7 @@ class Codec:
         if not data:
             return None
         val = data.pop(0)
-        return None if val == 'None' else TreeNode(int(val))
+        return None if val == '#' else TreeNode(int(val))
         
     def deserialize(self, data):
         """Decodes your encoded data to tree.
