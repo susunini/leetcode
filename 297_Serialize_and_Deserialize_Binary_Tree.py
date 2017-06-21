@@ -6,50 +6,7 @@
 #         self.right = None
 
 class Codec:
-    """ Tree. ItePre-order Traversal with 'null'. 356 ms. 
-   
-    Follow pre-order to serialize and deserialize. 
-    """
-
-    def serialize(self, root):
-        """Encodes a tree to a single string.
-        
-        :type root: TreeNode
-        :rtype: str
-        """
-        res = []
-        def preorder(root):
-            if not root:
-                res.append('#')
-                return
-            res.append(str(root.val))
-            preorder(root.left)
-            preorder(root.right)
-        preorder(root)
-        return ' '.join(res)
-        
-
-    def deserialize(self, data):
-        """Decodes your encoded data to tree.
-        
-        :type data: str
-        :rtype: TreeNode
-        """
-        if not data:
-            return None
-        data = data.split(' ')
-        def buildTree():
-            val = data.pop(0)
-            if val == '#':
-                return None
-            root = TreeNode(int(val))
-            root.left = buildTree()
-            root.right = buildTree()
-            return root
-        return buildTree()
-
-class Codec:
-    """ 362 ms. """
+    """ Tree. Recuirse pre-order DFS. 362 ms. """
     def preorder(self, root):
         if not root:
             self.res += '#' if not self.res else ' #'
@@ -87,7 +44,7 @@ class Codec:
         return self.buildTree(data)
     
  class Codec:
-    """ Iterative preorder DFS. """
+    """ Iterative pre-order DFS. """
     def serialize(self, root):
         """Encodes a tree to a single string.
         
@@ -105,7 +62,6 @@ class Codec:
                 stack.append(node.left)
         return res
         
-
     def buildNode(self, data):
         if not data:
             return None
