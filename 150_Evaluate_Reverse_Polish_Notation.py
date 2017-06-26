@@ -11,7 +11,7 @@ class Solution(object):
             '+': lambda x, y: y+x,
             '-': lambda x, y: y-x,
             '*': lambda x, y: y*x,
-            '/': lambda x, y: int(operator.truediv(y,x)) #
+            '/': lambda x, y: int(operator.truediv(y,x)) # Wrong: '/': lambda x, y: operator.truediv(y,x)
         }
         stack = []
         for tok in tokens:
