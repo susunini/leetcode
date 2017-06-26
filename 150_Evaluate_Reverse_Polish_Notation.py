@@ -20,3 +20,25 @@ class Solution(object):
             except ValueError:
                 stack.append(operators[tok](stack.pop(), stack.pop()))
         return stack.pop()
+    
+class Solution(object):
+    """ 65ms(89%). """
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        operators = {
+            '+': lambda x, y: y+x,
+            '-': lambda x, y: y-x,
+            '*': lambda x, y: y*x,
+            '/': lambda x, y: int(operator.truediv(y,x)) #
+        }
+        stack = []
+        for tok in tokens:
+            if tok not in operators:
+                stack.append(int(tok))
+            else:
+                stack.append(operators[tok](stack.pop(), stack.pop()))
+        return stack.pop()
+            
