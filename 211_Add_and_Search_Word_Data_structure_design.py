@@ -3,6 +3,7 @@ class TrieNode(object):
         self.children = dict()
         
 class WordDictionary(object):
+    """ Trie. 605ms(56%). """
 
     def __init__(self):
         """
