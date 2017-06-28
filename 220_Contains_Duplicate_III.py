@@ -17,6 +17,7 @@ reposition every element to start from Integer.MIN_VALUE. (I did not implement t
 """
 
 class Solution(object):
+    """ Bucket sort. """
     def containsNearbyAlmostDuplicate(self, nums, k, t):
         """
         :type nums: List[int]
@@ -25,15 +26,15 @@ class Solution(object):
         :rtype: bool
         """
         if t < 0: return False
-        w = t + 1
+        w = t+1 # window size 
         d = {}
         for i, num in enumerate(nums):
-            idx = num / w
+            idx = num/w
             if idx in d:
                 return True
-            if idx - 1 in d and abs(num - d[idx-1]) <= t:
+            if idx-1 in d and abs(num-d[idx-1]) <= t:
                 return True
-            if idx + 1 in d and abs(num - d[idx+1]) <= t:
+            if idx+1 in d and abs(num-d[idx+1]) <= t:
                 return True
             d[idx] = num
             if i >= k:
