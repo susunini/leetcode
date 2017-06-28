@@ -32,7 +32,8 @@ class Solution(object):
         for i, num in enumerate(nums):
             if i > k:
                 remove_idx =(nums[i-k-1]-min_num)/w 
-                del d[remove_idx]
+                del d[remove_idx] # No need to worry about deleting numbers within current sliding window because would have return True
+                                  # if there are duplicates within previous sliding window
             idx = (num-min_num)/w # Wrong for corner cases like num = -5: num/w 
             if idx in d:
                 return True
