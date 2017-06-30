@@ -19,7 +19,7 @@ class Solution(object):
                 
                 
 class Solution(object):
-    """ Sort. Two Pointers.
+    """ 20170629. Sort. Two Pointers.
     Maintain: nums before p1 are all 1s, nums after p2 are all 2s, all nums [p1, c] all 1s unless p1 == c
     test cases: [0], [0,0]. """
     def sortColors(self, nums):
