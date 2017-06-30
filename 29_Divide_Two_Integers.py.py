@@ -50,7 +50,7 @@ class Solution(object):
         return sign*(1<<res)
         
 class Solution(object):
-    """ Binary Search. 98%. 
+    """ 20170630. Binary Search. 98%. 
     Integer Overflow."""
     def divide(self, dividend, divisor):
         """
