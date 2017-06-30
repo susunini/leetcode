@@ -30,7 +30,6 @@ class Solution(object):
         p1 = 0; p2 = len(nums)-1
         c = 0
         while c <= p2 and p1 < p2:
-            #print c, p2
             if nums[c] == 1:
                 c += 1
             elif nums[c] == 2:
