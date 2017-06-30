@@ -26,7 +26,7 @@ class Solution(object):
         return -res # Wrong: return res
         
 class Solution(object):
-    """ Heap. O(k+(n-k)logk). 115ms(42%).
+    """ Heap. O(k+(n-k)logk). 115ms(42%). """
     def findKthLargest(self, nums, k):
         """
         :type nums: List[int]
@@ -40,4 +40,27 @@ class Solution(object):
             heapq.heappop(heap)
         return heap[0]
         
-        
+ class Solution(object):
+    """ Divide and Conquer. 95%. """
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k > len(nums):
+            return None
+        if k == 1:
+            return max(nums)
+        if len(nums) == k:
+            return min(nums)
+        pivot = nums[0]
+        left = [num for num in nums if num < pivot]  
+        equal = [num for num in nums if num == pivot]
+        right = [num for num in nums if num > pivot]
+        if len(right) >= k:
+            return self.findKthLargest(right, k)
+        elif len(right)+len(equal) >= k:
+            return pivot
+        else:
+            return self.findKthLargest(left, k-len(right)-len(equal))       
