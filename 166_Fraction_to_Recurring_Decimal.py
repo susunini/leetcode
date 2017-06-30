@@ -4,7 +4,7 @@ class Solution(object):
     1. sign
     2. integer part
     3. fractional part
-    4. repeating numerator
+    4. repeating numerator """
     def fractionToDecimal(self, numerator, denominator):
         """
         :type numerator: int
