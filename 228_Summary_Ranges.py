@@ -1,5 +1,5 @@
 class Solution(object):
-    """ Array. 56%. 
+    """ Array. 56%. Shorter?
     Test Cases: 1. [] 2. [1] 3. [0,1,2,4,5,7] """
     def generateRange(self, nums):
         if len(nums) == 1:
