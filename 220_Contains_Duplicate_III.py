@@ -28,7 +28,7 @@ class Solution(object):
         if t < 0 or not nums: # Corner cases: 1. t == -1 2. nums = []
             return False
         d = {}
-        w = t+1; min_num = min(nums)
+        w = t+1; min_num = min(nums) # Wrong for corner case t == 0: w = t; min_num = min(nums)
         for i, num in enumerate(nums):
             if i > k:
                 remove_idx =(nums[i-k-1]-min_num)/w 
