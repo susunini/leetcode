@@ -41,7 +41,7 @@ class Solution(object):
         return heap[0]
         
  class Solution(object):
-    """ Divide and Conquer. 95%. """
+    """ Divide and Conquer. Quick Select. 95%. """
     def findKthLargest(self, nums, k):
         """
         :type nums: List[int]
