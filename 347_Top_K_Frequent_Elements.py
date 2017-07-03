@@ -1,5 +1,5 @@
 class Solution(object):
-    """ Heap. """
+    """ Heap. Time O(n+klogn). Space O(n). """
     def topKFrequent(self, nums, k):
         """
         :type nums: List[int]
@@ -52,7 +52,7 @@ class Solution(object):
                 res.extend(buckets[i])
 
 class Solution(object):
-    """ One-liner python
+    """ One-liner python """
     def topKFrequent(self, nums, k):
         """
         :type nums: List[int]
