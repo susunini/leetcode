@@ -35,6 +35,7 @@ class Solution(object):
                 del d[remove_idx] # No need to worry about deleting numbers within current sliding window because would have return True
                                   # if there are duplicates within previous sliding window
             idx = (num-min_num)/w # Wrong for corner cases like num = -5: num/w 
+                                  # second thought it is correct because d is a dictionary instead of a list
             if idx in d:
                 return True
             if (idx-1) in d and abs(num-d[idx-1]) <= t:
