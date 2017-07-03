@@ -38,7 +38,7 @@ class Solution(object):
         return r_str
         
 class Solution(object):
-    """ 99%.
+    """ 20170702. 32ms(99%).
     test cases: 1. 4/2 2. 1/2 3. -50/8 4. 1/3 5. 0.4(38)"""
     def fractionToDecimal(self, numerator, denominator):
         """
