@@ -2,7 +2,7 @@ LESS_THEN_20 = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eigh
 TENS = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
 
 class Solution(object):
-    """ 55%. """
+    """ Hard. 55%. """
     def numberToWords(self, num):
         """
         :type num: int
@@ -52,7 +52,27 @@ class Solution(object):
         i = 1
         while num >= pow(1000, i+1):
             i += 1
-        print i
         return ' '.join([self.helper(num/pow(1000, i)), 
                          THOUSANDS[i], 
                          self.helper(num%pow(1000, i))]).strip()
+    
+class Solution(object):
+    def numberToWords(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        return self.helper(num) or 'Zero'
+
+    def helper(self, num):
+        if num < 20:
+            return LESS_THEN_20[num]
+        if num < 100:
+            return ' '.join([TENS[num/10], self.helper(num%10)]).strip()
+        if num < 1000:
+            return ' '.join([self.helper(num/100), 'Hundred', self.helper(num%100)]).strip()
+        for p, w in enumerate(('Thousand', 'Million', 'Billion'), 1):
+            if num < 1000**(p+1):
+                return ' '.join([self.helper(num/1000**p), 
+                                 w,                  
+                                 self.helper(num%1000**p)]).strip()
