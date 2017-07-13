@@ -43,3 +43,27 @@ class MovingAverage(object):
             n = len(self.queue)
             self.avg = (self.avg*(n-1)+val)/float(n)
         return self.avg
+    
+class MovingAverage(object):
+    """ 87%. """
+    def __init__(self, size):
+        """
+        Initialize your data structure here.
+        :type size: int
+        """
+        self.queue = []
+        self.cap = size
+        self.sum = 0
+        
+
+    def next(self, val):
+        """
+        :type val: int
+        :rtype: float
+        """
+        queue = self.queue
+        queue.append(val)
+        self.sum += val
+        if len(queue) > self.cap:
+            self.sum -= queue.pop(0)            
+        return self.sum/float(len(queue))
