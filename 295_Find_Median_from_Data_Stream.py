@@ -1,6 +1,7 @@
 from heapq import heappush, heappop
 
 class MedianFinder(object):
+    """ Hard. Design. 99%. """
 
     def __init__(self):
         """
