@@ -24,4 +24,22 @@ class Solution(object):
                 cur_len += length
                 stack.append(length)
         return res
+    
+class Solution(object):
+    """ Stephane's solution. Dictionary. """
+    def lengthLongestPath(self, input):
+        """
+        :type input: str
+        :rtype: int
+        """
+        path_len = {-1:0}; res = 0
+        for line in input.splitlines():
+            name = line.lstrip('\t')
+            depth = len(line)-len(name)
+            # or: depth = line.count('\t')
+            if '.' in name:
+                res = max(res, path_len[depth-1]+len(name))
+            else:
+                path_len[depth] = path_len[depth-1]+len(name)+1
+        return res
                 
