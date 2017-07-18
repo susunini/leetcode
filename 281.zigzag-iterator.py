@@ -42,7 +42,7 @@
 #
 #
 class ZigzagIterator(object):
-   """ Google. Design. """
+   """ Google. Design. 21%. """
 
     def __init__(self, v1, v2):
         """
@@ -52,8 +52,6 @@ class ZigzagIterator(object):
         """
         self.lists = [v1, v2]
         self.pointers = [0 if li else sys.maxint for li in self.lists]
-
-
 
     def next(self):
         """
@@ -74,6 +72,32 @@ class ZigzagIterator(object):
         """
         return any([self.pointers[i] != sys.maxint for i in range(len(self.pointers))])
 
+ class ZigzagIterator(object):
+   """ queue. 50%. """
+
+    def __init__(self, v1, v2):
+        """
+        Initialize your data structure here.
+        :type v1: List[int]
+        :type v2: List[int]
+        """
+        self.queue = [v  for v in (v1, v2) if v]
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        v = self.queue.pop(0)
+        res = v.pop(0)
+        if v:
+            self.queue.append(v)
+        return res
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        return bool(self.queue)
 
 # Your ZigzagIterator object will be instantiated and called as such:
 # i, v = ZigzagIterator(v1, v2), []
