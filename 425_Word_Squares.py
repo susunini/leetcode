@@ -29,10 +29,11 @@ class Trie(object):
 class Solution(object):
     def helper(self, words, trie, square, res):
         if len(square) == len(words[0]):
-            res.append(square[:])
+            res.append(square) # before correct but not necessary: res.append(square[:])
             return
-        for index in trie.getStartWith(''.join(zip(*square)[len(square)])):
-            self.helper(words, trie, square+[words[index]], res) #
+        prefix = ''.join(zip(*square)[len(square)] # alt: prefix = ''.join([w[len(square])] for w in square])
+        for index in trie.getStartWith(prefix): # error: for word in trie.getStartWith(prefix)
+            self.helper(words, trie, square+[words[index]], res)
         
     def wordSquares(self, words):
         """
