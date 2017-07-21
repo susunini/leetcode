@@ -45,3 +45,27 @@ class Solution(object):
             square = [w]
             self.helper(words, trie, square, res)
         return res
+
+class Solution(object):
+    """ Stefan's solution. 69%. """
+    def wordSquares(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[List[str]]
+        """
+        n = len(words[0])
+        fulls = collections.defaultdict(list)
+        for word in words:
+            for i in range(len(word)):
+                fulls[word[:i]].append(word)
+        def build(square):
+            if len(square) == n:
+                squares.append(square)
+                return
+            for word in fulls[''.join(zip(*square)[len(square)])]:
+                build(square+[word])
+        squares = []
+        for word in words:
+            square = [word]
+            build(square)
+        return squares
