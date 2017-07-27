@@ -26,7 +26,7 @@ class Solution(object):
         return self.helper(nums, target, 0, len(nums)-1)
     
  class Solution(object):
-    """ 84%. """
+    """ Binary Search. Template. 84%. """
     def searchInsert(self, nums, target):
         """
         :type nums: List[int]
