@@ -192,4 +192,69 @@ class LRUCache(object):
                 del self.key_to_node[node_to_del.key]
                 self.removeNode(node_to_del)
                 self.cnt -= 1
+                
+class DoubleLinkedListNode(object):
+    def __init__(self, key, value):
+        self.key = key # miss
+        self.val = value
+        self.prev = self.next = None
+    
+class LRUCache(object):
+    """ 20170803. """
+    def removeNode(self, node):
+        node.prev.next, node.next.prev = node.next, node.prev
+        node.next = node.prev = None
+        self.size -= 1
+    
+    def insertNode(self, node):
+        head = self.head
+        # head.next, node.next, head.next.prev, node.prev = node, head.next, node, head # Wrong
+        head.next, node.next = node, head.next
+        node.next.prev, node.prev = node, head
+        self.size += 1
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.head = DoubleLinkedListNode(None, None)
+        self.tail = DoubleLinkedListNode(None, None)
+        self.head.next, self.tail.prev = self.tail, self.head
+        self.key_node = dict()
+        self.size = 0; self.cap = capacity
+        
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.key_node:
+            return -1
+        node = self.key_node[key]
+        self.removeNode(node)
+        self.insertNode(node)
+        return node.val
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        if self.cap < 1:
+            return
+        if key in self.key_node:
+            node = self.key_node[key]
+            node.val = value # miss
+            self.removeNode(node)
+            self.insertNode(node)
+        else:
+            node = DoubleLinkedListNode(key, value)
+            self.key_node[key] = node # miss
+            self.insertNode(node)
+        if self.size > self.cap:
+            node_to_remove = self.tail.prev
+            del self.key_node[node_to_remove.key] # miss
+            self.removeNode(node_to_remove)
         
