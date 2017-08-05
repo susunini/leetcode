@@ -208,49 +208,37 @@ class Solution(object):
         :type grid: List[List[str]]
         :rtype: int
         """
-        if len(grid) < 1 or len(grid[0]) < 1:
+        if not grid or not grid[0]:
             return 0
-        self.count = 0 # Wrong: count = 0
-        m = len(grid)
-        n = len(grid[0])
-        parents = [None]*(m*n)
+        m, n = len(grid), len(grid[0])
         
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == '1':
-                    self.count += 1
+        self.count = sum([1 for i in range(m) for j in range(n) if grid[i][j] == '1']) # Wrong: count =
+        parents = [i for i in range(m*n)]
         
-        for i in range(len(parents)):
-            parents[i] = i
+        def getIndex(row, col):
+            return row*n+col # Wrong: row*m+col
         
-        def getRoot(e):
-            while e != parents[e]:
-                e = parents[e]
-            return e
+        def getRoot(node):
+            while parents[node] != node:
+                parents[node] = parents[parents[node]]
+                node = parents[node]
+            return node
         
-        def isConnected(e1, e2):
-            return getRoot(e1) == getRoot(e2)
-            
-        def union(e1, e2):
-            """ union two elements. 
-            :return False if e1 and e2 is already connected; 
-            otherwise return True. """
-            r1, r2 = getRoot(e1), getRoot(e2)
-            if r1 == r2:
-                return False
-            parents[r1] = r2
-            self.count -= 1 # important
-            return True
-            
-        def getIndex(x, y):
-            return x*n + y
+        def union(node1, node2):
+            root1 = getRoot(node1)
+            root2 = getRoot(node2)
+            if root1 == root2:
+                return
+            parents[root1] = root2
+            self.count -= 1
             
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == '1':
-                    for x,y in [(i-1, j), (i+1, j), (i, j-1), (i, j+1)]:
-                        if 0 <= x < m and 0 <= y < n and grid[x][y] == '1':
-                            union(getIndex(i,j), getIndex(x,y))
+                if grid[i][j] != '1':
+                    continue
+                for x, y in [(i-1, j), (i, j-1)]:
+                    if 0 <= x < m and 0 <= y < n and grid[x][y] == '1':
+                        union(getIndex(i,j), getIndex(x,y))
                         
         return self.count
         
