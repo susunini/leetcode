@@ -1,6 +1,7 @@
 from heapq import heappush, heappop
 
 class Solution(object):
+    """ Heap. """
     def kthSmallest(self, matrix, k):
         """
         :type matrix: List[List[int]]
