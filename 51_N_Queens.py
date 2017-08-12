@@ -1,5 +1,7 @@
 class Solution(object):
     """
+    Backtracing: backtrace both solution and xy_sums and xy_diffs. 
+    
     a solution <=> a valid list of column indexes to position queens
     (x1, y1) and (x2, y2) are in the same diagonal line <=> abs(x1 - x2) == abs(y1 - y2) OR
     [(x1 + y1) == (x2 + y2) or (x1 - y1) == (x2 - y2)]
