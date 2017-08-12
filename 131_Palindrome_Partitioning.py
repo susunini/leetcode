@@ -1,4 +1,6 @@
 class Solution(object):
+    """ Backtracing(DFS). Time Complexity O(n^3)?. 
+    TODO: DP+BFS O(n^2). """
     def isPalindrome(self, s):
         p1 = 0; p2 = len(s)-1
         while p1 < p2:
