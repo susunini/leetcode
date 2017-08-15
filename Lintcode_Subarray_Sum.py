@@ -8,7 +8,7 @@ class Solution:
         @return: A list of integers includes the index of the first number 
         and the index of the last number
         """
-        sum_to_index = {0: -1}
+        sum_to_index = {0: -1} # Wrong for test case [-1,1], [0, ...] : sum_to_index = {}
         sum = 0
         for i, num in enumerate(nums):
             sum += num
