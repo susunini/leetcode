@@ -26,3 +26,22 @@ class Solution(object):
                 num_to_len[num] = num_to_len[num - left_len] = num_to_len[num + right_len] = sum_len
                 res = max(res, sum_len)
         return res
+    
+class Solution(object):
+        """ Refactor to help understanding. Only update border elements. """
+        def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        result = 0
+        num_to_len = {}
+        for num in nums:
+            if num in num_to_len:
+                continue
+            left_len = num_to_len.get(num-1, 0)
+            right_len = num_to_len.get(num+1, 0)
+            num_to_len[num] = 1
+            num_to_len[num-left_len] = num_to_len[num+right_len] = left_len+1+right_len
+            result = max(result, sum_len)
+        return res
