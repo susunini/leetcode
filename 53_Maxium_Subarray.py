@@ -18,6 +18,16 @@ class Solution(object):
             dp = max(num, num + dp)
             res = max(res, dp)
         return res
+    
+class Solution:
+    """ 20170819. """
+    def maxSubArray(self, nums):
+        prev = 0; result = -sys.maxint-1
+        for num in nums:
+            prev = max(prev,0)+num
+            result = max(result, prev)
+        return result
+    
             
             
             
