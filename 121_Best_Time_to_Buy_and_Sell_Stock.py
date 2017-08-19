@@ -17,30 +17,14 @@ class Solution(object):
             min_price = min(min_price, price)
         return res
     
-class Solution(object):
+  class Solution:
     """ A variation of the orginal problem.
     
-    if the interviewer twists the question slightly by giving the difference array of prices, Ex: for {1, 7, 4, 11}, 
-    if he gives {0, 6, -3, 7}, the problem is same as 53 Maxium Subarray. """
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        if not prices:
-            return 0
-        diffs = [0] * len(prices)
-        for i in range(1, len(diffs)):
-            diffs[i] = prices[i]-prices[i-1]
-        dp = 0
-        res = 0
-        for diff in diffs[1:]:
-            dp = max(0, dp) + diff
-            res = max(res, dp)
-        return res
+    If the interviewer twists the question slightly by giving the difference array of prices, Ex: for {1, 7, 4, 11}, 
+    if he gives {0, 6, -3, 7}, the problem is same as 53 Maxium Subarray. 
     
-  class Solution:
-    """ 20170817. """
+    The only difference is that maximum subarray contains at least one number, the result might be a negative number.
+    """
     def maxProfit(self, prices):
         if len(prices) < 2:
             return 0
