@@ -1,30 +1,5 @@
-class Solution(object):
-    """ Wrong. """
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        res = []
-        for p1, num1 in enumerate(nums):
-            if p1 != 0 and nums[p1] == nums[p1-1]:
-                continue
-            p2 = p1 + 1; p3 = len(nums) - 1
-            while p2 < p3:
-                num2 = nums[p2]; num3 = nums[p3]
-                cur_sum = num1 + num2 + num3
-                if cur_sum == 0:
-                    res.append([num1, num2, num3])
-                    p2 += 1; p3 -= 1
-                    while p2 < p3 and nums[p2] == nums[p2-1]: p2 += 1
-                    while p2 < p3 and nums[p3] == nums[p3+1]: p3 -= 1
-                elif cur_sum < 0:
-                    p2 += 1
-                else:
-                    p3 -= 1
-        return res
-        
-class Solution(object):
+
+ class Solution(object):
     """ Two Pointers.
     Pay attention to corner cases of duplicate numbers. """
     def threeSum(self, nums):
@@ -81,5 +56,42 @@ class Solution(object):
                     p3 -= 1
         return res
                     
+ class Solution(object):
+    """ Two Pointers. 20170820. """
+    def twoSum(self, nums, target):
+        result = []
+        p1 = 0; p2 = len(nums)-1
+        while p1 < p2:
+            if p1 > 0 and nums[p1] == nums[p1-1]:
+                p1 += 1
+                continue
+            if p2 < len(nums)-1 and nums[p2] == nums[p2+1]:
+                p2 -= 1
+                continue
+            if nums[p1] + nums[p2] == target:
+                result.append([nums[p1], nums[p2]])
+                p1 += 1; p2 -= 1
+                continue
+            if nums[p1] + nums[p2] < target:
+                p1 += 1
+            else:
+                p2 -= 1
+        return result
+            
                     
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        result = []
+        for i, num in enumerate(nums):
+            if num > 0:
+                break
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            for num2, num3 in self.twoSum(nums[i+1:], -num):
+                result.append([num, num2, num3])
+        return result
                     
