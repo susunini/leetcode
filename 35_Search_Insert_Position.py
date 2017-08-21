@@ -49,3 +49,27 @@ class Solution(object):
         if target > nums[end]:
             return end+1
         return end
+
+class Solution(object):
+    """ 20170821. """
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        start = 0; end = len(nums)-1
+        while start+1 < end:
+            mid = start+(end-start)/2
+            if nums[mid] == target:
+                return mid
+            if nums[mid] < target:
+                start = mid
+            else:
+                end = mid
+        if nums[start] >= target:
+            return start
+        if nums[end] >= target:
+            return end
+        return end+1
+                
