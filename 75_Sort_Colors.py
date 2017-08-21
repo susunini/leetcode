@@ -1,6 +1,6 @@
 class Solution(object):
     """ Sort.
-    At any time, A[0:i] all 0, A[i:j] all 1, A[k+1:] all 2 """
+    At any time, A[0:i) all 0, A[i:j) all 1, A[k+1:] all 2 """
     def sortColors(self, nums):
         """
         :type nums: List[int]
@@ -20,7 +20,7 @@ class Solution(object):
                 
 class Solution(object):
     """ 20170629. Sort. Two Pointers.
-    Maintain: nums before p1 are all 1s, nums after p2 are all 2s, all nums [p1, c] all 1s unless p1 == c
+    Maintain: nums before p1 are all 1s, nums after p2 are all 2s, all nums [p1, c) all 1s.
     test cases: [0], [0,0]. """
     def sortColors(self, nums):
         """
