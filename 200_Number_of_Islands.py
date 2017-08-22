@@ -93,5 +93,48 @@ class Solution(object):
                         union(getIndex(i,j), getIndex(x,y))
                         
         return self.count
+    
+    
+class Solution(object):
+    """ 20170822. Union Find. 6%. """
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if not grid or not grid[0]:
+            return 0
+        m = len(grid); n = len(grid[0])
+        result = m*n
+        
+        parents = [i for i in range(m*n)]
+        
+        def getRoot(node):
+            while node != parents[node]:
+                parents[node] = parents[parents[node]]
+                node = parents[node]
+            return node
+        
+        def union((x1,y1), (x2, y2)):
+            root1 = getRoot(x1*n+y1)
+            root2 = getRoot(x2*n+y2)
+            if root1 == root2:
+                return False
+            parents[root1] = root2
+            return True
+            
+     
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '0': # Miss
+                    result -= 1  # Miss
+                    continue
+                if i != 0 and grid[i-1][j] == '1':
+                    if union((i, j), (i-1, j)):
+                        result -= 1
+                if j != 0 and grid[i][j-1] == '1':
+                    if union((i, j), (i, j-1)):
+                        result -= 1
+        return result
         
         
