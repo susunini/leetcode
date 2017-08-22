@@ -22,10 +22,7 @@ class Solution(object):
         board[:] = [['XO'[e == 'C'] for e in row] for row in board]
         
 class Solution(object):
-    """ Union Find. 
-    
-    BTW how about using rank?
-    """
+    """ Union Find. """
     def solve(self, board):
         """
         :type board: List[List[str]]
@@ -34,9 +31,7 @@ class Solution(object):
         if not len(board) or not len(board[0]):
             return
         m = len(board); n = len(board[0])
-        parents = [None]*(m*n+1)
-        for i in range(len(parents)):
-            parents[i] = i
+        parents = [i for i in range(m*n+1)]
             
         def getRoot(e):
             while e != parents[e]:
@@ -71,3 +66,51 @@ class Solution(object):
             for j in range(n):
                 if board[i][j] == 'O' and not isConnected(i*n+j, m*n):
                     board[i][j] = 'X'
+
+class Solution(object):
+    """ Union Find. Using ranks. """
+    def solve(self, board):
+        if not board or not board[0]:
+            return
+        m = len(board); n = len(board[0])
+        dummy = m*n
+        parents = [i for i in range(m*n+1)]
+        ranks = [0]*(m*n+1)
+        ranks[m*n] = m*n
+        
+        def getRoot(e):
+            while e != parents[e]:
+                parents[e] = parents[parents[e]]
+                e = parents[e]
+            return e
+        
+        def union(e1, e2):
+            root1 = getRoot(e1)
+            root2 = getRoot(e2)
+            if root1 == root2:
+                return
+            if ranks[root1] < ranks[root2]:
+                parents[root1] = root2
+            elif ranks[root1] > ranks[root2]:
+                parents[root2] = root1
+            else:
+                ranks[root2] += 1
+                parents[root1] = root2
+                
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == 'X':
+                    continue
+                if i == 0 or j == 0 or i == m-1 or j == n-1:
+                    union(i*n+j, dummy)
+                if i > 0 and board[i-1][j] == 'O':
+                    union(i*n+j, (i-1)*n+j)
+                if j > 0 and board[i][j-1] == 'O':
+                    union(i*n+j, i*n+(j-1))
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == 'X':
+                    continue
+                if getRoot(i*n+j) == m*n: # Wrong: if parents[i*n+j] == m*n
+                    continue
+                board[i][j] = 'X'
