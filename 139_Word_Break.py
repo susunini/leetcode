@@ -1,4 +1,5 @@
 class Solution(object):
+    """ confirm assumption: each word in wordDict can be used multiple times. """
     def wordBreak(self, s, wordDict):
         """
         :type s: str
