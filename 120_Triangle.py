@@ -20,3 +20,5 @@ class Solution:
                     dp[i][j] = dp[i-1][j-1]
                 dp[i][j] += triangle[i][j]
         return min(dp[-1])
+    
+# TODO: O(n) space, O(1) space by modifying triangle
