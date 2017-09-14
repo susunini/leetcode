@@ -257,4 +257,74 @@ class LRUCache(object):
             node_to_remove = self.tail.prev
             del self.key_node[node_to_remove.key] # miss
             self.removeNode(node_to_remove)
+            
+class DLLNode(object):
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.next = self.prev = None
+        
+class LRUCache(object):
+    """ 20170914. """
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.head = DLLNode(None, None)
+        self.tail = DLLNode(None, None)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.cap = capacity
+        self.size = 0
+        self.dic = dict()
+        
+    def addNode(self, node):
+        tmp = self.head.next
+        self.head.next = node; node.next = tmp
+        tmp.prev = node; node.prev = self.head
+        
+    def removeNode(self, node):
+        prev_node = node.prev; next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+        node.next = node.prev = None
+        
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.dic:
+            return -1
+        node = self.dic[key]
+        self.removeNode(node)
+        self.addNode(node)
+        return node.value
+        
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        if key not in self.dic:
+            node = DLLNode(key, value)
+            self.dic[key] = node
+            self.addNode(node)
+            self.size += 1
+        else:
+            node = self.dic[key]
+            node.value = value
+            self.removeNode(node)
+            self.addNode(node)
+        if self.size > self.cap:
+            node_to_remove = self.tail.prev
+            self.removeNode(node_to_remove) 
+            del self.dic[node_to_remove.key] # miss
+            self.size -= 1
+        
         
