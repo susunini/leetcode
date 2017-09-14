@@ -160,9 +160,7 @@ class Solution(object):
         :rtype: int
         """
         self.count = n
-        parents = [0]*n
-        for i in range(n):
-            parents[i] = i
+        parents = [i for i in range(n)]
     
         def findRoot(e):
             while e != parents[e]:
