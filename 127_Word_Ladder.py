@@ -69,6 +69,36 @@ class Solution(object):
                 start, end = end, start 
             wordList -= start
         return 0
+    
+class Solution(object):
+    """ 20170918. """
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        wordList = set(wordList)
+        if endWord not in wordList: # Miss
+            return 0
+        wordList.discard(beginWord) # Wrong: wordList.remove(beginWord)
+        start = {beginWord}; end = {endWord}
+        result = 1
+        while start:
+            if start & end:
+                return result
+            start = set([
+                word[:i] + ch + word[i+1:] 
+                for word in start 
+                for i in range(len(word)) 
+                for ch in 'abcdefghijklmnopqrstuvwxyz'
+            ]) & wordList
+            if len(start) > len(end):
+                start, end = end, start
+            wordList -= start # Wrong: remove start from wordList before swapping start and end
+            result += 1
+        return 0
             
             
         
