@@ -11,10 +11,8 @@ class Solution(object):
         sign = '+'
         num = 0
         for i, ch in enumerate(s):
-            if ch == ' ':
-                continue
             if ch in ['+', '-', '*', '/'] or i == len(s)-1:
-                if i == len(s)-1:
+                if i == len(s)-1 and ch != ' ':
                     num = num*10+int(ch)
                 if sign == '+':
                     stack.append(num)
@@ -26,6 +24,8 @@ class Solution(object):
                     stack.append(operator.truediv(stack.pop(), num))
                 num = 0
                 sign = ch
+                continue
+            if ch == ' ':
                 continue
             num = num*10+int(ch)
         return sum(stack)
