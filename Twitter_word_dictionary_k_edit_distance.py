@@ -28,30 +28,28 @@ def buildTrie(wordDict):
 
 def search(trie, word, max_dist):
     results = list()
-    cur_row = range(len(word)+1) # cur_row = [i for i in range(len(word)+1)]
-    print cur_row
+    cur_row = range(len(word)+1) # row for dp matrix
     for letter, child in trie.root.children.items():
         doSearch(child, letter, word, max_dist, cur_row, results)
     return results
 
 
-def doSearch(node, letter, word, max_dist, prev_dp_row, results):
-    cur_dp_row = [None]*(len(word)+1)
-    cur_dp_row[0] = prev_dp_row[0]+1
+def doSearch(node, letter, word, max_dist, prev_row, results):
+    cur_row = [None]*(len(word)+1)
+    cur_row[0] = prev_row[0]+1
     for j in range(1, len(cur_dp_row)):
         insert_cost = prev_dp_row[j]+1
         delete_cost = cur_dp_row[j-1]+1
         replace_cost = prev_dp_row[j-1] + (0 if letter == word[j-1] else 1)
-        cur_dp_row[j] = min(insert_cost, delete_cost, replace_cost)
-    print cur_dp_row
+        cur_row[j] = min(insert_cost, delete_cost, replace_cost)
     if cur_dp_row[-1] <= max_dist and node.word is not None:
         results.append(node.word)
-
+        
     if min(cur_dp_row) > max_dist:
         return
 
     for letter, child in node.children.items():
-        doSearch(child, letter, word, max_dist, cur_dp_row, results)
+        doSearch(child, letter, word, max_dist, cur_row, results)
 
 dictionary = ['bat', 'batt', 'cat', 'beetle']
 trie = buildTrie(dictionary)
