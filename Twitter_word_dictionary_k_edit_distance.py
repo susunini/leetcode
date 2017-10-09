@@ -1,5 +1,6 @@
 """
 Given a dictionary and a word w, find all words from the dictionary whose edit distance from w is k.
+http://stevehanov.ca/blog/index.php?id=114
 """
 
 class TrieNode:
