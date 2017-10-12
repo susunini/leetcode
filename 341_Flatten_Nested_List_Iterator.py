@@ -30,31 +30,32 @@
 #        """
 
 class NestedIterator(object):
+    """ 20171011. """
 
     def __init__(self, nestedList):
         """
         Initialize your data structure here.
         :type nestedList: List[NestedInteger]
         """
-        self.stack = [elem for elem in nestedList[::-1]]
-            
+        self.stack = nestedList[::-1]
+        
+
     def next(self):
         """
         :rtype: int
         """
+        # assuming hasNext is always called before next, stack pop
         return self.stack.pop().getInteger()
+        
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        while self.stack and not self.stack[-1].isInteger():
-            for elem in self.stack.pop().getList()[::-1]:
-                self.stack.append(elem)
-                
-        if self.stack:
-            return True
-        return False
+        stack = self.stack
+        while stack and not stack[-1].isInteger():
+            stack += stack.pop().getList()[::-1] # wrong: stack += stack.pop().getList()
+        return True if stack else False
         
         
 
