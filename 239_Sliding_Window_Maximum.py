@@ -21,7 +21,9 @@ class Solution(object):
 class Solution(object):
     """ Deque. O(n). 71%.
     deque is a double linked list supporting O(1) pop and push from both ends. 
-    deque 1. sotres indexes 2. values in deque are decreasing 3. max is always at head. 
+    deque 1. sotres indexes 
+          2. monotonic decreasing queue (values)
+          3. maxis always at head. 
     """
     def maxSlidingWindow(self, nums, k):
         d = collections.deque()
