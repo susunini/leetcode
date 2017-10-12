@@ -1,3 +1,11 @@
+"""
+Words are sorted lexicographically by the rules of this new language. 
+'Words are sorted', not 'each word is sorted'.
+["wrt", "wrf", "er", "ett", "rftt"] => "wertf"
+["zy", "zx"] => "zyx" / "yzx" / "yxz"
+["z", "x", "z"] => ""
+"""
+
 class Solution(object):
     """ Wrong. Incorrect understanding of the problem description. """
     def alienOrder(self, words):
