@@ -5,13 +5,14 @@
 class Solution(object):
     def search_first(self, prefix, words):
         """ Search the first prefix from a list of words. """
+        if not words:
+            return -1
         start = 0; end = len(words)-1
         while start+1 < end:
             mid = end + (start - end) / 2
-            word = words[mid]
-            compare_result = self.compare(prefix, word)
+            compare_result = self.compare(prefix, words[mid])
             if compare_result == 0:
-                return word
+                end = mid # Wrong: return words[mid]
             if compare_result > 0:
                 start = mid
             else:
@@ -48,3 +49,5 @@ words = ['Ann', 'App', 'Apple', 'Boy']
 assert(Solution().search_first('Ap', words) == 'App')
 assert(Solution().search_first('C', words) == -1)
 assert(Solution().search_first('B', words) == 'Boy')
+assert(Solution().search_first('B', []) == -1)
+assert(Solution().search_first('', words) == 'Ann')
