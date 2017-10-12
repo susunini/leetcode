@@ -1,6 +1,8 @@
 """ Find First Prefix-Match From a Sorted String Array.
-"""
 
+Binary search in only need to search once.
+Build a trie and search from the trie if multiple queries.
+"""
 
 class Solution(object):
     def search_first(self, prefix, words):
